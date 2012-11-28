@@ -1,0 +1,115 @@
+#header{
+	padding: 0 0 10px 0;
+	overflow: hidden;
+}
+
+#header h1{
+	padding: 20px 0 20px 20px;
+	border-bottom: 1px solid #fff;
+	font-size: 22px;
+}
+
+#header ul{
+	float: left;
+	margin-left: 20px;
+	list-style-type: none;
+}
+
+#header ul li{
+	display: inline;
+	margin-left: 0;
+}
+
+#header ul li a{
+	color: #fff;
+}
+
+#header dl{
+	float: right;
+	width: auto;
+	line-height: 100%;
+}
+
+#header dl dt, #header dl dd{
+	display: inline;
+	background-color: transparent;
+	margin: 0;
+}
+
+#header dl dd{
+	margin-right: 20px;
+}
+
+#header dl a{
+	color: #fff;
+}
+
+#content{
+	padding: 10px 2% 40px 2%;
+}
+
+.index.noactions{
+	width: 96%;
+	border-left: 0;
+}
+
+.messages td a, .messages table td.actions a{
+	font-weight: normal;
+	color: #333333;
+}
+
+.messages .unread td, .messages .unread td a{
+	font-weight: bold;
+}
+
+.messages .important td, .messages .important td a{
+	color: #FF0000;
+}
+
+table tr:nth-child(2n+1) {
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+
+table.cke_editor tr:nth-child(2n+1) {
+	background-color: transparent;
+}
+
+form .cke_editor div{
+	clear: none;
+}
+
+form .file a{
+	display: inline-block;
+	margin-top: 10px;
+}
+
+form .file img{
+	max-width: 100px;
+	max-height: 100px;
+	margin-top: 10px;
+}
+
+table.sub-form-index{
+	margin: 0.5em;
+}
+
+table.sub-form-index caption{
+	text-align: left;
+	font-size: 110%;
+	font-weight: bold;
+}
+
+table.sub-form-index img{
+	max-width: 100px;
+	max-height: 100px;
+}
+
+.sub-form .actions{
+	display: none;
+}
+
+.sub-form div.form, .sub-form div.index, .sub-form div.view{
+	width: auto;
+	border-left: 0;
+	float: none;
+}
