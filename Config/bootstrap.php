@@ -18,20 +18,19 @@ $POC->configCheck('pcre'); // Cache Me
 
 // Check to make sure all the required plugins are available
 $plugins = App::objects('plugin');
-$utilsExists = in_array('Utils', $plugins);
+//$utilsExists = in_array('Utils', $plugins);
+$datasourcesExists = in_array('Datasources', $plugins);
 
-if ($databaseConnected) {
-	if ($utilsExists) {
-		CakePlugin::load('Utils');
-		CakePlugin::load('Datasources');
-		
-		App::uses('ConnectionManager', 'Model');
-		ConnectionManager::create('config',  array('datasource' => 'PieceOCake.ReaderSource'));
-		Configure::load('piece_o_cake');
-	}
+if ($datasourcesExists) {
+	CakePlugin::load('Datasources');
+	App::uses('ConnectionManager', 'Model');
+	ConnectionManager::create('config',  array('datasource' => 'PieceOCake.ReaderSource'));
 }
 
+// Load Piece O Cake configuration
+Configure::load('piece_o_cake');
+
 CakePlugin::load('Search');
-CakePlugin::load('Users');
+CakePlugin::load('Users', array('routes' => true));
 
 // CakePlugin::load('Uploader');
