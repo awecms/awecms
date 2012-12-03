@@ -15,22 +15,24 @@ $POC->configCheck('php_version'); // Cache Me
 $POC->configCheck('tmp_writable');  // Cache Me
 $POC->configCheck('pcre'); // Cache Me
 
+// Load Piece O Cake configuration
+Configure::load('piece_o_cake');
 
 // Check to make sure all the required plugins are available
 $plugins = App::objects('plugin');
-//$utilsExists = in_array('Utils', $plugins);
 $datasourcesExists = in_array('Datasources', $plugins);
+$utilsExists = in_array('Utils', $plugins);
+$usersExists = in_array('Users', $plugins);
+$searchExists = in_array('Search', $plugins);
 
 if ($datasourcesExists) {
-	CakePlugin::load('Datasources');
+	CakePlugin::load('Datasources'); // CakePHP/Datasources plugin (2.0 branch)
 	App::uses('ConnectionManager', 'Model');
 	ConnectionManager::create('config',  array('datasource' => 'PieceOCake.ReaderSource'));
 }
 
-// Load Piece O Cake configuration
-Configure::load('piece_o_cake');
-
-CakePlugin::load('Search');
-CakePlugin::load('Users', array('routes' => true));
+CakePlugin::load('Utils'); // CakeDC/Utils plugin
+CakePlugin::load('Search'); // CakeDC/Search plugin
+CakePlugin::load('Users', array('routes' => true)); // CakeDC/Users plugin
 
 // CakePlugin::load('Uploader');
