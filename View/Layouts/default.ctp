@@ -29,7 +29,7 @@
 				<dd><?php echo $this->Html->link(__(Configure::read('Admin.website_name')), '/'); ?></dd>
 				<dt><?php echo __('Logged in as') ?>:</dt>
 				<dd><?php echo AuthComponent::user('username'); ?></dd>
-				<dt><?php echo $this->Html->link(__('Logout'), array('plugin' => 'piece_o_cake', 'controller' => 'users', 'action' => 'logout')) ?></dt>
+				<dt><?php echo $this->Html->link(__('Logout'), array('admin' => false, 'plugin' => 'users', 'controller' => 'users', 'action' => 'logout')) ?></dt>
 				<dd></dd>
 			</dl>
 		</div>
