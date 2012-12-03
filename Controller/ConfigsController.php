@@ -1,6 +1,5 @@
 <?php
 App::uses('PieceOCakeAppController', 'PieceOCake.Controller');
-App::import('Vendor', 'PieceOCake.spyc/spyc');
 /**
  * Configs Controller
  *
@@ -8,25 +7,20 @@ App::import('Vendor', 'PieceOCake.spyc/spyc');
  */
 class ConfigsController extends PieceOCakeAppController {
 
-
 /**
- * index method
+ * admin_index method
  *
  * @return void
  */
 	public function admin_index() {
 		$this->Config->recursive = 0;
-		if (Configure::read('debug') < 1) {
-			$this->paginate = array(
-				'conditions' => array('is_locked' => 0),
-			);
-		}
 		$this->set('configs', $this->paginate());
 	}
 
 /**
- * view method
+ * admin_view method
  *
+ * @throws NotFoundException
  * @param string $id
  * @return void
  */
@@ -39,16 +33,13 @@ class ConfigsController extends PieceOCakeAppController {
 	}
 
 /**
- * add method
+ * admin_add method
  *
  * @return void
  */
 	public function admin_add() {
 		if ($this->request->is('post')) {
 			$this->Config->create();
-			if ($this->request->data['Config']['type'] == 'array') {
-				$this->request->data['Config']['value'] = Spyc::YAMLLoadString($this->request->data['Config']['value']);
-			}
 			if ($this->Config->save($this->request->data)) {
 				$this->Session->setFlash(__('The config has been saved'));
 				$this->redirect(array('action' => 'index'));
@@ -59,8 +50,9 @@ class ConfigsController extends PieceOCakeAppController {
 	}
 
 /**
- * edit method
+ * admin_edit method
  *
+ * @throws NotFoundException
  * @param string $id
  * @return void
  */
@@ -70,9 +62,6 @@ class ConfigsController extends PieceOCakeAppController {
 			throw new NotFoundException(__('Invalid config'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->request->data['Config']['type'] == 'array') {
-				$this->request->data['Config']['value'] = Spyc::YAMLLoadString($this->request->data['Config']['value']);
-			}
 			if ($this->Config->save($this->request->data)) {
 				$this->Session->setFlash(__('The config has been saved'));
 				$this->redirect(array('action' => 'index'));
@@ -81,15 +70,14 @@ class ConfigsController extends PieceOCakeAppController {
 			}
 		} else {
 			$this->request->data = $this->Config->read(null, $id);
-			if ($this->request->data['Config']['type'] == 'array') {
-				$this->request->data['Config']['value'] = Spyc::YAMLDump($this->request->data['Config']['value'], 2, 0);
-			}
 		}
 	}
 
 /**
- * delete method
+ * admin_delete method
  *
+ * @throws MethodNotAllowedException
+ * @throws NotFoundException
  * @param string $id
  * @return void
  */

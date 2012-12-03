@@ -23,10 +23,11 @@ $utilsExists = in_array('Utils', $plugins);
 if ($databaseConnected) {
 	if ($utilsExists) {
 		CakePlugin::load('Utils');
+		CakePlugin::load('Datasources');
 		
-		App::uses('DboReader', 'PieceOCake.Configure');
-		Configure::config('dbo', new DboReader());
-		Configure::load('Config', 'dbo');
+		App::uses('ConnectionManager', 'Model');
+		ConnectionManager::create('config',  array('datasource' => 'PieceOCake.ReaderSource'));
+		Configure::load('piece_o_cake');
 	}
 }
 
