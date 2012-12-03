@@ -44,9 +44,21 @@ class PieceOCake implements CakeEventListener {
 					),
 				),
 				'authenticate' => array('Form'),
-				'loginAction' => array('admin' => false, 'plugin' => 'users', 'controller' => 'users', 'action' => 'login'),
+				'loginAction' => array('admin' => false, 'plugin' => 'users', 'controller' => 'users', 'action' => 'login', 'return_to' => 'admin'),
 			);
 			$Controller->Components->load('Auth', $settings);
+		}
+		
+		// Set the layout to POC auth layout when logining into backend
+		$named =& $Controller->request->params['named'];
+		$data =& $Controller->request->data;
+		$url = Router::url(array('admin' => true, 'plugin' => 'piece_o_cake', 'controller' => 'pages', 'action' => 'display', 'home', 'base' => false));
+		if (!empty($named['return_to']) && $named['return_to'] == 'admin') {
+			$data['User']['return_to'] = $url;
+		}
+		if (!empty($data['User']['return_to']) && $data['User']['return_to'] == $url) {
+			$Controller->layout = 'PieceOCake.auth';
+			$named['return_to'] = urlencode($url);
 		}
 		
 		// Debug test shortcut for views and controllers
@@ -57,7 +69,7 @@ class PieceOCake implements CakeEventListener {
 	public function addMenuItems($event) {
 		$Menu = $event->subject();
 		$Menu->addItem('Configuration', array('plugin' => 'piece_o_cake', 'controller' => 'configs', 'action' => 'index'));
-		$Menu->addItem('Users', array('plugin' => 'piece_o_cake', 'controller' => 'users', 'action' => 'index'));
+		$Menu->addItem('Users', array('plugin' => 'users', 'controller' => 'users', 'action' => 'index'));
 	}
 	
 	public function configCheck($key = null) {
