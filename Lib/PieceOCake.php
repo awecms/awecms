@@ -2,6 +2,7 @@
 
 App::uses('CakeEventListener', 'Event');
 App::uses('Inflector', 'Utility');
+App::uses('ClassRegistry', 'Utility');
 
 class PieceOCake implements CakeEventListener {
 	
@@ -10,7 +11,7 @@ class PieceOCake implements CakeEventListener {
 	protected $_configChecks = array();
 	protected $_configCheckMessages = array();
 	
-	protected $_widgets = array();
+	protected $_blocks = array();
 	
 	public static function instance() {
 		if (empty(self::$_instance)) {
@@ -23,6 +24,7 @@ class PieceOCake implements CakeEventListener {
 		return array(
 			'Controller.initialize' => 'controllerInitialize',
 			'Admin.MainMenu.beforeRender' => 'addMenuItems',
+			'Widget.initialize' => 'registerWidgetClasses',
 		);
 	}
 	
@@ -64,12 +66,22 @@ class PieceOCake implements CakeEventListener {
 		// Debug test shortcut for views and controllers
 		$Controller->debug = Configure::read('debug') > 0;
 		$Controller->set('debug', $Controller->debug);
+		
+		// Register Widget Model
+		ClassRegistry::init(array('class' => 'PieceOCake.Widget', 'alias' => 'Widget'));
 	}
 	
 	public function addMenuItems($event) {
 		$Menu = $event->subject();
+		$Menu->addItem('Widgets', array('plugin' => 'piece_o_cake', 'controller' => 'widgets', 'action' => 'index'));
 		$Menu->addItem('Configuration', array('plugin' => 'piece_o_cake', 'controller' => 'configs', 'action' => 'index'));
 		$Menu->addItem('Users', array('plugin' => 'users', 'controller' => 'users', 'action' => 'index'));
+	}
+	
+	public function registerWidgetClasses($event) {
+		$Widget = $event->subject();
+		$Widget->registerWidgetClass('PieceOCake.Html');
+		$Widget->registerWidgetClass('PieceOCake.Element');
 	}
 	
 	public function configCheck($key = null) {
@@ -159,12 +171,5 @@ class PieceOCake implements CakeEventListener {
 		
 		return true;
 	}
-	
-	public function registerWidget($name) {
-		$this->_widgets[] = $name;
-	}
-	
-	public function getWidgetList() {
-		return $this->_widgets;
-	}
+
 }
