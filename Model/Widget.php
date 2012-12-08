@@ -10,6 +10,7 @@ App::uses('Inflector', 'Utility');
  */
 class Widget extends PieceOCakeAppModel {
 
+	public $useTable = 'Widget';
 	protected $_blocks = array();
 	protected $_widgetClasses = array();
 
