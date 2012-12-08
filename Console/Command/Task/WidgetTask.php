@@ -5,6 +5,10 @@ App::uses('BakeTask', 'Console/Command/Task');
 class WidgetTask extends BakeTask {
 
 	public $tasks = array('Project', 'Template');
+	
+	public function initialize() {
+		$this->path = current(App::path('Model'));
+	}
 
 	public function execute() {
 		parent::execute();
@@ -32,7 +36,7 @@ class WidgetTask extends BakeTask {
 		if ($plugin) {
 			$plugin .= '.';
 		}
-		App::uses($modelImport, 'PieceOCake.Model');
+		App::uses('Widget', 'PieceOCake.Model');
 		if (!class_exists($modelImport)) {
 			$this->err(__d('cake_console', 'You must have a model for this class to build basic methods. Please try again.'));
 			$this->_stop();
