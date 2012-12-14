@@ -82,6 +82,7 @@ class PieceOCake implements CakeEventListener {
 		$Widget = $event->subject();
 		$Widget->registerWidgetClass('PieceOCake.Html');
 		$Widget->registerWidgetClass('PieceOCake.Element');
+		$Widget->registerWidgetClass('PieceOCake.Common');
 	}
 	
 	public function configCheck($key = null) {
