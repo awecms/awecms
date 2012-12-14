@@ -10,9 +10,12 @@ App::uses('Inflector', 'Utility');
  */
 class Widget extends PieceOCakeAppModel {
 
-	public $useTable = 'Widget';
+	public $useTable = 'widgets';
+	public $order = array('Widget.block', 'Widget.order');
+	
 	protected $_blocks = array();
 	protected $_widgetClasses = array();
+	protected $_widgets = array();
 
 /**
  * Validation rules
@@ -91,18 +94,32 @@ class Widget extends PieceOCakeAppModel {
 	
 	public function getWidgets($blockName) {
 		$widgets = array();
-		$data = $this->findAllByBlock($blockName);
+		$data = $this->findAllByBlock($blockName, array(), 'Widget.order');
 		foreach ($data as $widget) {
-			extract($this->getWidgetClass($widget['Widget']['class']));
-			App::uses($className, $plugin . 'Widget');
-			$widgets[] = new $className($widget['Widget']);
+			if (!isset($this->_widgets[$widget['Widget']['id']])) {
+				$this->_initWidget($widget);
+			}
+			$widgets[] = $this->_widgets[$widget['Widget']['id']];
 		}
 		return $widgets;
 	}
 	
+	public function getWidget($id) {
+		if (!isset($this->_widgets[$id])) {
+			$this->_initWidget($this->findById($id));
+		}
+		return $this->_widgets[$id];
+	}
+	
+	protected function _initWidget($widget) {
+		extract($this->getWidgetClass($widget['Widget']['class']));
+		App::uses($className, $plugin . 'Widget');
+		$this->_widgets[$widget['Widget']['id']] = new $className($widget['Widget']);
+	}
+	
 	public function getWidgetClass($name) {
 		if (!isset($this->_widgetClasses[$name])) {
-			debug($name);die;
+			die(__('Widget Class "%s" is not registered.', $name));
 			throw new CakeException(__('Widget Class "%s" is not registered.', $name));
 		}
 		return $this->_widgetClasses[$name];
