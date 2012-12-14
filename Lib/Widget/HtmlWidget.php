@@ -13,7 +13,7 @@ class HtmlWidget extends BaseWidget {
 		$this->settings['escape'] = empty($this->settings['escape']) ? false : true;
 	}
 
-	public function render($view) {
+	public function getContent() {
 		return $this->settings['escape'] ? h($this->settings['escape']) : $this->settings['escape'];
 	}
 
