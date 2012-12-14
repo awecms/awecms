@@ -1,5 +1,7 @@
 <?php
+
 App::uses('PieceOCakeAppController', 'PieceOCake.Controller');
+
 /**
  * Widgets Controller
  *
