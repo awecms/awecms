@@ -12,9 +12,10 @@
 		<td><?php echo h($config['Config']['name']); ?>&nbsp;</td>
 		<td><?php echo h($config['Config']['value']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $config['Config']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $config['Config']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $config['Config']['id']), null, __('Are you sure you want to delete # %s?', $config['Config']['id'])); ?>
+			<?php if ($this->Session->read('Auth.User.is_admin')) : ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $config['Config']['id']), null, __('Are you sure you want to delete # %s?', $config['Config']['id'])); ?>
+			<?php endif; ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -34,9 +35,11 @@
 	?>
 	</div>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Config'), array('action' => 'add')); ?></li>
-	</ul>
-</div>
+<?php if ($this->Session->read('Auth.User.is_admin')) : ?>
+	<div class="actions">
+		<h3><?php echo __('Actions'); ?></h3>
+		<ul>
+			<li><?php echo $this->Html->link(__('New Config'), array('action' => 'add')); ?></li>
+		</ul>
+	</div>
+<?php endif; ?>
