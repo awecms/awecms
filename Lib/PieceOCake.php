@@ -34,25 +34,35 @@ class PieceOCake implements CakeEventListener {
 		// Is a page with the admin prefix being requested. If so then setup POC admin.
 		if (!empty($Controller->request->params['admin'])) {
 			$Controller->helpers[] = 'PieceOCake.Menu';
-			App::uses('AuthComponent', 'Controller/Component');
 			$Controller->layout = 'PieceOCake.default';
+			App::uses('AuthComponent', 'Controller/Component');
 			
 			$settings = array(
 				'all' => array(
 					'scope' => array(
 						'User.active' => 1,
-						'User.is_admin' => 1,
+						//'User.is_admin' => 1,
 						'User.role' => 'admin',
 					),
 				),
 				'authenticate' => array('Form'),
-				'loginAction' => array('admin' => false, 'plugin' => 'users', 'controller' => 'users', 'action' => 'login', 'return_to' => 'admin'),
+				'loginAction' => array('admin' => false, 'plugin' => 'users', 'controller' => 'users', 'action' => 'login'),
 			);
 			$Controller->Components->load('Auth', $settings);
 		}
 		
+		// Set the layout when logging in and for users
+		if (Hash::contains($Controller->request->params, array('plugin' => 'users', 'controller' => 'users', 'action' => 'login'))) {
+			$Controller->layout = 'PieceOCake.auth';
+		} else if (Hash::contains($Controller->request->params, array('plugin' => 'users', 'controller' => 'users'))) {
+			$Controller->layout = 'PieceOCake.default';
+		}
+		
+		// Security component fails for my clients too often
+		$Controller->Components->unload('Security');
+		
 		// Set the layout to POC auth layout when logining into backend
-		$named =& $Controller->request->params['named'];
+		/*$named =& $Controller->request->params['named'];
 		$data =& $Controller->request->data;
 		$url = Router::url(array('admin' => true, 'plugin' => 'piece_o_cake', 'controller' => 'pages', 'action' => 'display', 'home', 'base' => false));
 		if (!empty($named['return_to']) && $named['return_to'] == 'admin') {
@@ -61,7 +71,7 @@ class PieceOCake implements CakeEventListener {
 		if (!empty($data['User']['return_to']) && $data['User']['return_to'] == $url) {
 			$Controller->layout = 'PieceOCake.auth';
 			$named['return_to'] = urlencode($url);
-		}
+		}*/
 		
 		// Debug test shortcut for views and controllers
 		$Controller->debug = Configure::read('debug') > 0;
@@ -80,9 +90,10 @@ class PieceOCake implements CakeEventListener {
 	
 	public function registerWidgetClasses($event) {
 		$Widget = $event->subject();
-		$Widget->registerWidgetClass('PieceOCake.Html');
-		$Widget->registerWidgetClass('PieceOCake.Element');
-		$Widget->registerWidgetClass('PieceOCake.Common');
+		$Widget->registerWidgetClass('PieceOCake.Html', array('editUrl' => array('action' => 'edit_html')));
+		$Widget->registerWidgetClass('PieceOCake.Element', array('editUrl' => array('action' => 'edit_element')));
+		$Widget->registerWidgetClass('PieceOCake.Common', array('editUrl' => array('action' => 'edit_common')));
+		$Widget->registerBlock('common');
 	}
 	
 	public function configCheck($key = null) {
