@@ -9,6 +9,7 @@
 	<?php
 		echo $this->Html->meta('icon');
 
+		echo $this->Html->css('//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap.min.css');
 		echo $this->Html->css('PieceOCake.cake.generic');
 		echo $this->Html->css('PieceOCake.smoothness/jquery-ui-1.9.0.custom.min');
 		echo $this->Html->css('PieceOCake.style');
@@ -60,8 +61,8 @@
 	var baseUrl = <?php echo json_encode($this->Html->url('/')); ?>;
 	</script>
 	<?php
-	echo $this->fetch('script');
 	echo $this->Html->script('PieceOCake.common');
+	echo $this->fetch('script');
 	?>
 </body>
 </html>
