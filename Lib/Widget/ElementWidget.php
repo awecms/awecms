@@ -8,7 +8,7 @@ class ElementWidget extends BaseWidget {
 
 	public function __construct($widget) {
 		parent::__construct($widget);
-		$this->settings = json_decode($widget['content'], true);
+		$this->settings = $widget['data'];
 		if (empty($this->settings['element'])) {
 			$this->_error = 'Error: You must specify an element.';
 			//throw new CakeException('You must specify an element.');

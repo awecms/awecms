@@ -6,7 +6,7 @@ class HtmlWidget extends BaseWidget {
 
 	public function __construct($widget) {
 		parent::__construct($widget);
-		$this->settings = json_decode($widget['content']);
+		$this->settings = $widget['data'];
 		if (empty($this->settings['content'])) {
 			$this->settings['content'] = null;
 		}
