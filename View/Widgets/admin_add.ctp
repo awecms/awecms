@@ -4,9 +4,8 @@
 		<legend><?php echo __('Admin Add Widget'); ?></legend>
 	<?php
 		echo $this->Form->input('name');
-		echo $this->Form->input('block');
-		echo $this->Form->input('class');
-		echo $this->Form->input('content');
+		echo $this->Form->input('block', array('options' => $blocks));
+		echo $this->Form->input('class', array('options' => $classes));
 		echo $this->Form->input('order');
 		echo $this->Form->input('is_active');
 	?>

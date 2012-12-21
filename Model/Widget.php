@@ -10,6 +10,9 @@ App::uses('Inflector', 'Utility');
  */
 class Widget extends PieceOCakeAppModel {
 
+	public $actsAs = array(
+		'Utils.Serializable' => array('field' => 'data', 'engine' => 'json')
+	);
 	public $useTable = 'widgets';
 	public $order = array('Widget.block', 'Widget.order');
 	
@@ -82,14 +85,43 @@ class Widget extends PieceOCakeAppModel {
 		return $this->_blocks;
 	}
 	
-	public function registerWidgetClass($name) {
+	public function getBlockList() {
+		$keys = array_keys($this->_blocks);
+		$values = Hash::extract($this->_blocks, '{s}.title');
+		return array_combine($keys, $values);
+	}
+	
+	public function registerWidgetClass($name, $options = array()) {
 		list($plugin, $widgetName) = pluginSplit($name, true);
 		$className = $widgetName . 'Widget';
-		$this->_widgetClasses[$name] = compact('plugin', 'className', 'widgetName');
+		
+		$title = Inflector::humanize(Inflector::underscore($widgetName));
+		if (!empty($options['title'])) {
+			$title = $options['title'];
+		}
+		
+		$editUrl = array('admin' => true, 'plugin' => 'piece_o_cake', 'controller' => 'widgets', 'action' => 'edit');
+		if (!empty($options['editUrl'])) {
+			$editUrl = array_merge($editUrl, $options['editUrl']);
+		}
+		
+		$this->_widgetClasses[$name] = compact('plugin', 'className', 'widgetName', 'title', 'options', 'editUrl');
+	}
+	
+	public function getEditUrls() {
+		$keys = array_keys($this->_widgetClasses);
+		$values = Hash::extract($this->_widgetClasses, '{s}.editUrl');
+		return array_combine($keys, $values);
 	}
 	
 	public function getWidgetClasses() {
 		return $this->_widgetClasses;
+	}
+	
+	public function getWidgetClassList() {
+		$keys = array_keys($this->_widgetClasses);
+		$values = Hash::extract($this->_widgetClasses, '{s}.title');
+		return array_combine($keys, $values);
 	}
 	
 	public function getWidgets($blockName) {

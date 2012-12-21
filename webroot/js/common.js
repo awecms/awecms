@@ -55,7 +55,103 @@ jQuery(function($) {
 	};
 });*/
 
-jQuery(function($){
+(function($) {
+
+	var RelatedModel = function($related, options) {
+        var settings = $.extend({}, $.fn.relatedModel.defaults, options);
+		
+		var openModel = function() {
+			var $link = $(this);
+			RelatedModel.load($link.attr('href'), $related);
+			return false;
+		};
+		
+		var deleteRecord = function(event) {
+			if (event.isDefaultPrevented()) {
+				return false;
+			}
+			var $link = $(this);
+			if (!RelatedModel.submitting) {
+				RelatedModel.submitting = true;
+				$.post($link.attr('href'), false, function(data) {
+					$related.html(data.content);
+					RelatedModel.submitting = false;
+				}, 'json');
+			}
+			return false;
+		};
+		
+		$related.on('click', '.actions a[href*="/edit/"], .actions a[href*="/add"]', openModel);
+		$related.on('click', '.actions a[href*="/delete/"]', deleteRecord);
+	};
+	
+	// Static
+	RelatedModel.isInitialized = false;
+	RelatedModel.open = false;
+	RelatedModel.submitting = false;
+	RelatedModel.div = false;
+	
+	RelatedModel.initialize = function() {
+		if (RelatedModel.isInitialized) {
+			return;
+		}
+		RelatedModel.isInitialized = true;
+		
+		RelatedModel.div = $('<div></div>');
+		RelatedModel.div.appendTo('body');
+		RelatedModel.div.dialog({
+			modal: true,
+			width: '76%',
+			autoOpen: false,
+			close: function(event, ui) {
+				RelatedModel.open = false;
+			}
+		});
+	};
+	
+	RelatedModel.load = function(url, $related) {
+		RelatedModel.initialize();
+		if (!RelatedModel.open) {
+			RelatedModel.open = true;
+			RelatedModel.div.load(url, false, function() {
+				RelatedModel.div.dialog('open');
+				var $form = RelatedModel.div.find('form');
+				$form.submit(function() {
+					if (!RelatedModel.submitting) {
+						RelatedModel.submitting = true;
+						$.post($form.attr('action'), $form.serialize(), function(data) {
+							RelatedModel.submitting = false;
+							if (data.success) {
+								$related.html(data.content);
+								RelatedModel.div.dialog('close');
+							} else {
+								RelatedModel.div.html(data.content);
+							}
+						}, 'json');
+					}
+					return false;
+				});
+			});
+		}
+	};
+	
+	$.fn.relatedModel = function(options) {
+		return this.each(function(key, value){
+            var $element = $(this);
+            if ($element.data('relatedModel')) {
+				return $element.data('relatedModel');
+			}
+            var relatedModel = new RelatedModel($element, options);
+            $element.data('relatedModel', relatedModel);
+        });
+	};
+	
+	$.fn.relatedModel.defaults = {
+	};
+
+})(jQuery);
+
+/*jQuery(function($){
 	
 	var createForm = function() {
 		var $link = $(this);
@@ -114,4 +210,4 @@ jQuery(function($){
 	
 	$('.sub-form-button').click(createForm);
 	$('.sub-form-index').on('click', 'a[href*="/edit/"], a[href*="/delete/"]', createForm);
-});
+});*/

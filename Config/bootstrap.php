@@ -34,5 +34,6 @@ if ($datasourcesExists) {
 CakePlugin::load('Utils'); // CakeDC/Utils plugin
 CakePlugin::load('Search'); // CakeDC/Search plugin
 CakePlugin::load('Users', array('routes' => true)); // CakeDC/Users plugin
+CakePlugin::load('JsonEditor');
 
 // CakePlugin::load('Uploader');
