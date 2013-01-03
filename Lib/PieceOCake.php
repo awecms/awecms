@@ -90,9 +90,9 @@ class PieceOCake implements CakeEventListener {
 	
 	public function registerWidgetClasses($event) {
 		$Widget = $event->subject();
-		$Widget->registerWidgetClass('PieceOCake.Html', array('editUrl' => array('action' => 'edit_html')));
-		$Widget->registerWidgetClass('PieceOCake.Element', array('editUrl' => array('action' => 'edit_element')));
-		$Widget->registerWidgetClass('PieceOCake.Common', array('editUrl' => array('action' => 'edit_common')));
+		$Widget->registerWidgetClass('PieceOCake.Html', array('editUrl' => array('controller' => 'html_widget')));
+		$Widget->registerWidgetClass('PieceOCake.Element', array('editUrl' => array('controller' => 'element_widget')));
+		$Widget->registerWidgetClass('PieceOCake.Common', array('editUrl' => array('controller' => 'common_widget')));
 		$Widget->registerBlock('common');
 	}
 	
