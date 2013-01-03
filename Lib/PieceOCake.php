@@ -34,7 +34,7 @@ class PieceOCake implements CakeEventListener {
 		// Is a page with the admin prefix being requested. If so then setup POC admin.
 		if (!empty($Controller->request->params['admin'])) {
 			$Controller->helpers[] = 'PieceOCake.Menu';
-			$Controller->layout = 'PieceOCake.default';
+			$Controller->layout = 'PieceOCake.admin';
 			App::uses('AuthComponent', 'Controller/Component');
 			
 			$settings = array(
@@ -55,7 +55,7 @@ class PieceOCake implements CakeEventListener {
 		if (Hash::contains($Controller->request->params, array('plugin' => 'users', 'controller' => 'users', 'action' => 'login'))) {
 			$Controller->layout = 'PieceOCake.auth';
 		} else if (Hash::contains($Controller->request->params, array('plugin' => 'users', 'controller' => 'users'))) {
-			$Controller->layout = 'PieceOCake.default';
+			$Controller->layout = 'PieceOCake.admin';
 		}
 		
 		// Security component fails for my clients too often
