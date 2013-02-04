@@ -8,13 +8,13 @@ class HtmlWidget extends BaseWidget {
 		parent::__construct($widget);
 		$this->settings = $widget['data'];
 		if (empty($this->settings['content'])) {
-			$this->settings['content'] = null;
+			$this->settings['content'] = '';
 		}
 		$this->settings['escape'] = empty($this->settings['escape']) ? false : true;
 	}
 
 	public function getContent() {
-		return $this->settings['escape'] ? h($this->settings['escape']) : $this->settings['escape'];
+		return $this->settings['escape'] ? h($this->settings['content']) : $this->settings['content'];
 	}
 
 }
