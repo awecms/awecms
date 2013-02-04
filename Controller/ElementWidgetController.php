@@ -5,7 +5,7 @@ App::uses('WidgetsAppController', 'PieceOCake.Controller');
 class ElementWidgetController extends WidgetsAppController {
 
 	// This method needs some serious moving to the model
-	public function admin_edit_element($id = null) {
+	public function admin_edit($id = null) {
 		$data = $this->_read($id);
 		$defaults = array('element' => '', 'data' => array(), 'options' => array(), 'view_vars' => array(), 'data_fields' => array());
 		if ($this->request->is('post') || $this->request->is('put')) {
