@@ -7,7 +7,9 @@ App::uses('PieceOCakeAppController', 'PieceOCake.Controller');
  */
 class PagesController extends PieceOCakeAppController {
 
-	public function admin_display() {
+	public $uses = array();
+
+	public function display() {
 		$path = func_get_args();
 
 		$count = count($path);
@@ -28,4 +30,10 @@ class PagesController extends PieceOCakeAppController {
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
 		$this->render(implode('/', $path));
 	}
+	
+	public function admin_display() {
+		$path = func_get_args();
+		call_user_func_array(array($this, 'display'), $path);
+	}
+
 }
