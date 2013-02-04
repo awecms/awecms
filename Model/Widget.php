@@ -126,7 +126,7 @@ class Widget extends PieceOCakeAppModel {
 	
 	public function getWidgets($blockName) {
 		$widgets = array();
-		$data = $this->findAllByBlock($blockName, array(), 'Widget.order');
+		$data = $this->findAllByBlockAndIsActive($blockName, 1, array(), 'Widget.order');
 		foreach ($data as $widget) {
 			if (!isset($this->_widgets[$widget['Widget']['id']])) {
 				$this->_initWidget($widget);
