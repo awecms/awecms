@@ -41,4 +41,10 @@ class Config extends PieceOCakeAppModel {
 			),
 		),
 	);*/
+	
+	public function write($name, $value) {
+		$this->create();
+		$config = array('Config' => compact('name', 'value'));
+		$this->save($config);
+	}
 }
