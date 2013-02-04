@@ -14,6 +14,7 @@ class CommonWidget extends BaseWidget {
 		$this->settings = $widget['data'];
 		if (empty($this->settings['widget_id'])) {
 			$this->_error = 'Error: You must specify an widget.';
+			return;
 		}
 		
 		$this->_Widget = ClassRegistry::getObject('Widget');
@@ -22,6 +23,9 @@ class CommonWidget extends BaseWidget {
 	
 	public function initialize($view) {
 		parent::initialize($view);
+		if ($this->_error) {
+			return;
+		}
 		$this->_proxiedWidget->initialize($view);
 	}
 
@@ -33,6 +37,9 @@ class CommonWidget extends BaseWidget {
 	}
 	
 	public function beforeRenderCheck() {
+		if ($this->_error) {
+			return false;
+		}
 		$result = parent::beforeRenderCheck();
 		if ($result === false) {
 			return false;
