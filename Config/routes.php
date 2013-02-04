@@ -1,6 +1,8 @@
 <?php
 
 Router::connect('/admin', array('admin' => true, 'plugin' => 'piece_o_cake', 'controller' => 'pages', 'action' => 'display', 'home'));
+Router::connect('/admin/display/*', array('admin' => true, 'plugin' => 'piece_o_cake', 'controller' => 'pages', 'action' => 'display'));
+Router::connect('/display/*', array('admin' => false, 'plugin' => 'piece_o_cake', 'controller' => 'pages', 'action' => 'display'));
 
 // Connect aliased routes
 /*$adminMenu = Configure::read('Admin.menu');
