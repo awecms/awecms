@@ -11,10 +11,15 @@ class BaseWidget extends Object implements CakeEventListener {
 	protected $_extend = null;
 	protected $_eventManager = null;
 	protected $_beforeRenderCalled = false;
+	protected $_name = null;
 	
 	public function __construct($widget) {
 		$this->id = $widget['id'];
 		$this->_widget = $widget;
+		if ($this->_name === null) {
+			list( , $widgetName) = pluginSplit($widget['class']);
+			$this->_name = $widgetName;
+		}
 	}
 	
 	public function implementedEvents() {
@@ -41,6 +46,10 @@ class BaseWidget extends Object implements CakeEventListener {
 	
 	public function getName() {
 		return $this->_widget['name'];
+	}
+	
+	public function getClassName() {
+		return str_replace('_', '-', Inflector::underscore($this->_name));
 	}
 	
 	public function extend($viewFile) {
