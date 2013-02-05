@@ -23,6 +23,7 @@ class PieceOCake implements CakeEventListener {
 	public function implementedEvents() {
 		return array(
 			'Controller.initialize' => 'controllerInitialize',
+			'Controller.beforeRender' => 'controllerBeforeRender',
 			'Admin.MainMenu.beforeRender' => 'addMenuItems',
 			'Widget.initialize' => 'registerWidgetClasses',
 		);
@@ -79,6 +80,49 @@ class PieceOCake implements CakeEventListener {
 		
 		// Register Widget Model
 		ClassRegistry::init(array('class' => 'PieceOCake.Widget', 'alias' => 'Widget'));
+	}
+	
+	public function controllerBeforeRender($event) {
+		$Controller = $event->subject();
+		
+		if (!empty($Controller->request->params['admin'])) {
+			$actions = $this->_getControllerActions($Controller);
+			$actionUrls = array();
+			foreach ($actions['admin'] as $action) {
+				$actionUrls[$action] = Router::url(array('action' => $action));
+			}
+			
+			$appConfig = array(
+				'BASE_URL' => Router::url('/'),
+				'ADMIN_URL' => Router::url(array('admin' => true, 'plugin' => 'piece_o_cake', 'controller' => 'pages', 'action' => 'display', 'home')),
+				'ACTIONS' => $actionUrls,
+			);
+			$Controller->set('appConfig', $appConfig);
+		}
+	}
+	
+	protected function _getControllerActions($Controller) {
+		$prefixes = Router::prefixes();
+		$actions = array_fill_keys($prefixes, array());
+		
+		foreach ($Controller->methods as $methodName) {
+			$method = new ReflectionMethod($Controller, $methodName);
+			$isPrivate = $method->name[0] === '_' || !$method->isPublic();
+			
+			if (!$isPrivate) {
+				if (empty($prefixes) || strpos($methodName, '_') === false) {
+					$actions[null][] = $methodName;
+				} else {
+					list($prefix, $action) = explode('_', $methodName, 2);
+					if (in_array($prefix, $prefixes)) {
+						$actions[$prefix][] = $action;
+					} else {
+						$actions[null][] = $methodName;
+					}
+				}
+			}
+		}
+		return $actions;
 	}
 	
 	public function addMenuItems($event) {
