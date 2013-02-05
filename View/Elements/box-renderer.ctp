@@ -1,6 +1,7 @@
 <?php
 $html = '';
 foreach ($widgets as $widget) :
+	$this->set('className', sprintf('box widget-%s id-%d', $widget->getClassName(), $widget->id));
 	$widget->extend('PieceOCake.box');
 	$html .= $widget->render();
 endforeach;
