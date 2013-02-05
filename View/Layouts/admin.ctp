@@ -58,7 +58,10 @@
 	echo $this->Html->script('PieceOCake.jquery-ui-1.9.0.custom.min');
 	?>
 	<script type="text/javascript">
+	// baseUrl is Deprecated. Use APP instead.
 	var baseUrl = <?php echo json_encode($this->Html->url('/')); ?>;
+	
+	var APP = <?php echo json_encode($appConfig); ?>;
 	</script>
 	<?php
 	echo $this->Html->script('PieceOCake.common');
