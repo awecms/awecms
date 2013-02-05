@@ -12,7 +12,23 @@
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php
+	$params = $this->Paginator->params();
+	if (empty($params['order'])) {
+		$order = 'block';
+	} else {
+		$order = array_keys($params['order']);
+		list( ,$order) = explode('.', $order[0]);
+	}
+	$titleVar = isset(${Inflector::pluralize($order)}) ? ${Inflector::pluralize($order)} : null;
+	$colspan = $this->Session->read('Auth.User.is_admin') ? 6 : 5;
+	$lastKey = null;
 	foreach ($widgets as $widget): ?>
+	<?php if (($order == 'block' || $order == 'class') && $lastKey != $widget['Widget'][$order]): ?>
+		<tr>
+			<th colspan="<?php echo $colspan; ?>"><?php echo h($titleVar[$widget['Widget'][$order]]); ?></th>
+		</tr>
+		<?php $lastKey = $widget['Widget'][$order]; ?>
+	<?php endif; ?>
 	<tr>
 		<td><?php echo h($widget['Widget']['name']); ?>&nbsp;</td>
 		<td><?php echo h($blocks[$widget['Widget']['block']]); ?>&nbsp;</td>
