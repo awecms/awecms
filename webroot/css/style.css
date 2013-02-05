@@ -95,7 +95,7 @@ form .file a{
 	margin-top: 10px;
 }
 
-form .file img, .preview img{
+form .file img, .preview img, .uploader-file img {
 	max-width: 100px;
 	max-height: 100px;
 	margin-top: 10px;
@@ -112,4 +112,8 @@ form .required label {
 
 .related div.actions {
 	padding: 0;
+}
+
+.input.uploader {
+	border-bottom: 1px solid #ccc;
 }

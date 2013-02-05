@@ -17,12 +17,13 @@
  
 .qq-uploader {
     position: relative;
+	display: inline-block;
     width: auto;
 	margin: 0;
 	padding: 0;
 }
 .qq-upload-button {
-    display: block;
+    display: inline-block;
 }
 .qq-upload-drop-area, .qq-upload-extra-drop-area {
     position: absolute;
@@ -111,4 +112,10 @@
 
 .alert-success .progress {
 	display: none;
+}
+
+.qq-uploader .remove, .uploader-file .remove {
+	text-decoration: none;
+	font-weight: normal;
+	margin-left: 10px;
 }
