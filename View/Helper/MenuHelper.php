@@ -33,57 +33,33 @@ class MenuHelper extends AppHelper {
 	}
 	
 	public function link($text, $url = null, $options = array(), $confirmMessage = false) {
-		if ($url === null) {
-			$slug = preg_replace(array('/\s&\s/', '/\s@\s/', '/\s+/', '/[^a-z0-9]/i'), array(' and ', ' at ', ' ', '-'), $text);
-			$slug = strtolower($slug);
-			//$slug = Inflector::slug($slug, '-');
-			$url = array('controller' => 'pages', 'action' => 'display', $slug);
-			
-			// This changes the default behaviour of cake and may need to be removed.
-			if (is_array($url) && empty($url['plugin'])) {
-				$url['plugin'] = false;
-			}
-		}
-		
-		$url = Router::normalize($url);
-		
-		$group = 'top';
-		if (isset($options['group'])) {
-			$group = $options['group'];
+		if ($this->isActive($url, $options)) {
+			$options['class'] = !empty($options['class']) ? $options['class'] . ' active' : 'active';
 		}
 		unset($options['group']);
+		return $this->Html->link($text, $url, $options, $confirmMessage);
+	}
+	
+	public function isActive($checkUrl, $options = array()) {
+		if (is_string($options)) {
+			$group = $options;
+		} else if (isset($options['group'])) {
+			$group = $options['group'];
+		} else {
+			$group = 'default';
+		}
 		
 		if (!isset($this->_matchUrl[$group])) {
 			$this->match(Router::url(), $group);
 		}
-		$matchUrl = $this->_matchUrl[$group];
 		
-		if (isset($options['query'])) {
-			$matchUrl = Router::parse($matchUrl);
-			$matchUrl['?'] = $this->request->query;
-			$matchUrl = Router::normalize($matchUrl);
-		}
-		
-		// With the new match() method this functionality becomes ambigiuos :(.
-		// As much as I like the 'match' option it kinda fails when routes are used.
-		$match = false;
-		if (isset($options['match'])) {
-			$match = preg_match($options['match'], $matchUrl);
-			unset($options['match']);
-		} else {
-			//$match = '/' . preg_quote($url, '/') . '[\/\?\#]/';
-		}
-		
-		if ($url == $matchUrl || $match) {
-			$options['class'] = !empty($options['class']) ? $options['class'] . ' active' : 'active';
-		}
-		return $this->Html->link($text, $url, $options, $confirmMessage);
+		return in_array(Router::normalize($checkUrl), $this->_matchUrl[$group]);
 	}
 	
 	public function match($url, $group = null) {
 		if ($group === null) {
-			$group = 'top';
+			$group = 'default';
 		}
-		$this->_matchUrl[$group] = Router::normalize($url);
+		$this->_matchUrl[$group][] = Router::normalize($url);
 	}
 }
