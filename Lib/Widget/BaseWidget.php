@@ -71,7 +71,8 @@ class BaseWidget extends Object implements CakeEventListener {
 			$this->_View->assign('content', $content);
 			$content = $this->_View->element($this->_extend);
 		}
-		
+		$Blocks->append('script', $this->_View->Blocks->get('script'));
+		$Blocks->append('css', $this->_View->Blocks->get('css'));
 		$this->_View->Blocks = $Blocks;
 		
 		return $content;
