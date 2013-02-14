@@ -23,6 +23,7 @@ class PieceOCake implements CakeEventListener {
 	public function implementedEvents() {
 		return array(
 			'Controller.initialize' => 'controllerInitialize',
+			//'Controller.beforeRedirect' => array('callable' => 'controllerBeforeRedirect', 'passParams' => true),
 			'Controller.beforeRender' => 'controllerBeforeRender',
 			'Admin.MainMenu.beforeRender' => 'addMenuItems',
 			'Widget.initialize' => 'registerWidgetClasses',
@@ -30,49 +31,25 @@ class PieceOCake implements CakeEventListener {
 	}
 	
 	public function controllerInitialize($event) {
-		$Controller = $event->subject();
+		$Controller =& $event->subject();
 		
 		// Is a page with the admin prefix being requested. If so then setup POC admin.
 		if (!empty($Controller->request->params['admin'])) {
 			$Controller->helpers[] = 'PieceOCake.Menu';
 			$Controller->layout = 'PieceOCake.admin';
-			App::uses('AuthComponent', 'Controller/Component');
-			
-			$settings = array(
-				'all' => array(
-					'scope' => array(
-						'User.active' => 1,
-						//'User.is_admin' => 1,
-						'User.role' => 'admin',
-					),
-				),
-				'authenticate' => array('Form'),
-				'loginAction' => array('admin' => false, 'plugin' => 'users', 'controller' => 'users', 'action' => 'login'),
-			);
-			$Controller->Components->load('Auth', $settings);
 		}
 		
-		// Set the layout when logging in and for users
+		$this->_setupAuth($Controller);
+		
+		// Set the layout when logging in
 		if (Hash::contains($Controller->request->params, array('plugin' => 'users', 'controller' => 'users', 'action' => 'login'))) {
 			$Controller->layout = 'PieceOCake.auth';
 		} else if (Hash::contains($Controller->request->params, array('plugin' => 'users', 'controller' => 'users'))) {
-			$Controller->layout = 'PieceOCake.admin';
+			//$Controller->layout = 'PieceOCake.admin';
 		}
 		
 		// Security component fails for my clients too often
 		$Controller->Components->unload('Security');
-		
-		// Set the layout to POC auth layout when logining into backend
-		/*$named =& $Controller->request->params['named'];
-		$data =& $Controller->request->data;
-		$url = Router::url(array('admin' => true, 'plugin' => 'piece_o_cake', 'controller' => 'pages', 'action' => 'display', 'home', 'base' => false));
-		if (!empty($named['return_to']) && $named['return_to'] == 'admin') {
-			$data['User']['return_to'] = $url;
-		}
-		if (!empty($data['User']['return_to']) && $data['User']['return_to'] == $url) {
-			$Controller->layout = 'PieceOCake.auth';
-			$named['return_to'] = urlencode($url);
-		}*/
 		
 		// Debug test shortcut for views and controllers
 		$Controller->debug = Configure::read('debug') > 0;
@@ -80,6 +57,49 @@ class PieceOCake implements CakeEventListener {
 		
 		// Register Widget Model
 		ClassRegistry::init(array('class' => 'PieceOCake.Widget', 'alias' => 'Widget'));
+	}
+	
+	protected function _setupAuth($Controller) {
+		if (!$Controller->Components->enabled('Auth')) {
+			App::uses('AuthComponent', 'Controller/Component');
+			$Controller->Auth = $Controller->Components->load('Auth');
+		}
+		
+		$Controller->Auth->authenticate = array(
+			'Form' => array(
+				'fields' => array(
+					'username' => 'email',
+					'password' => 'password'
+				),
+				'userModel' => 'Users.User', 
+				'scope' => array(
+					'User.active' => 1,
+					'User.email_verified' => 1
+				)
+			)
+		);
+		
+		$Controller->Auth->authorize = 'PieceOCake.Role';
+		$Controller->Auth->loginAction = array('admin' => false, 'plugin' => 'users', 'controller' => 'users', 'action' => 'login');
+		$Controller->Auth->unauthorizedRedirect = $Controller->Auth->loginAction;
+		$this->_Controller =& $Controller;
+		$Controller->getEventManager()->attach(array($this, 'controllerBeforeRedirect'), 'Controller.beforeRedirect', array('passParams' => true));
+	}
+	
+	// If a redirect occurs after login then redirect to the route prefix for that role
+	public function controllerBeforeRedirect($url, $status = null, $exit = true) {
+		$Controller =& $this->_Controller;
+		
+		if ($url === '/') {
+			$requestUrl = Router::normalize(Router::url());
+			$loginAction = Router::normalize($Controller->Auth->loginAction);
+			if ($requestUrl === $loginAction) {
+				$userRole = AuthComponent::user('role');
+				if (in_array($userRole, Configure::read('Routing.prefixes'))) {
+					return array('url' => '/' . $userRole);
+				}
+			}
+		}
 	}
 	
 	public function controllerBeforeRender($event) {
