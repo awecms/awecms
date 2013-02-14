@@ -105,19 +105,6 @@ class PieceOCake implements CakeEventListener {
 				}
 			}
 		}
-		
-		/*if ($url === '/') {
-			$requestUrl = Router::normalize(Router::url());
-			$loginAction = Router::normalize($Controller->Auth->loginAction);
-			if ($requestUrl === $loginAction) {
-				$userRole = AuthComponent::user('role');
-				if (in_array($userRole, Configure::read('Routing.prefixes'))) {
-					return array('url' => '/' . $userRole);
-				} else {
-					return array('url' => '/');
-				}
-			}
-		}*/
 	}
 	
 	public function controllerBeforeRender($event) {
