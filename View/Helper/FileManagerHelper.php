@@ -19,17 +19,17 @@ class FileManagerHelper extends AppHelper {
 	);
 
 	public function __construct(View $View, $settings = array()) {
+		list($helper, $options) = each($this->helpers);
+		$this->ProxiedHelper = $View->loadHelper($helper, $options);
 		parent::__construct($View, $settings);
-		// Make sure the FineUploader get constructed at the same time at this helper
-		$this->FineUploader !== null;
 	}
 	
 	public function beforeRender($viewFile) {
-		return $this->FineUploader->beforeRender($viewFile);
+		return $this->ProxiedHelper->beforeRender($viewFile);
 	}
 	
 	public function __call($name, $arguments) {
-		return call_user_func_array(array($this->FineUploader, $name), $arguments);
+		return call_user_func_array(array($this->ProxiedHelper, $name), $arguments);
 	}
 
 }

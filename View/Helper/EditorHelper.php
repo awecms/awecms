@@ -6,12 +6,12 @@ class EditorHelper extends FormHelper {
 		if (empty($this->settings['editor'])) {
 			$this->settings['editor'] = Configure::read('Admin.editor');
 		}
-		$this->helpers['ProxiedEditor'] = array('className' => $this->settings['editor']);
-		
+		$this->ProxiedHelper = $View->loadHelper($this->settings['editor']);
 		parent::__construct($View, $this->settings);
 	}
 	
 	public function input($field, $options = array()) {
-		return $this->ProxiedEditor->input($field, $options);
+		return $this->ProxiedHelper->input($field, $options);
 	}
+
 }
