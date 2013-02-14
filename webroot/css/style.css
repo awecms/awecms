@@ -117,3 +117,7 @@ form .required label {
 .input.uploader {
 	border-bottom: 1px solid #ccc;
 }
+
+.view dt, .view dd {
+	line-height: 2em;
+}
