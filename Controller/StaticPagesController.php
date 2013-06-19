@@ -5,7 +5,7 @@ App::uses('AwecmsAppController', 'Awecms.Controller');
  *
  * @property Page $Page
  */
-class PagesController extends AwecmsAppController {
+class StaticPagesController extends AwecmsAppController {
 
 	public $uses = array();
 
