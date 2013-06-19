@@ -20,14 +20,14 @@ class ElementWidgetController extends WidgetsAppController {
 			}
 			$this->request->data['Widget']['data'] = array_merge($defaults, $data['Widget']['data'], $this->data['Widget']['data']);
 			
-			App::import('Vendor', 'Uploader.Uploader');
-			$uploader = new Uploader();
+			//App::import('Vendor', 'Uploader.Uploader');
+			//$uploader = new Uploader();
 			
 			foreach ($this->data['Widget']['data']['data_fields'] as $field => $options) {
 				$type = empty($options['type']) ? 'text' : $options['type'];
 				if (!array_key_exists($field, $this->data['Widget']['data']['data'])) {
 					$this->request->data['Widget']['data']['data'][$field] = isset($data['Widget']['data']['data'][$field]) ? $data['Widget']['data']['data'][$field] : null;
-				} else if ($type == 'image' || $type == 'file') {
+				}/* else if ($type == 'image' || $type == 'file') {
 					// Upload images
 					if ($type == 'image') {
 						$uploader->uploadDir = 'img/upload/';
@@ -40,7 +40,7 @@ class ElementWidgetController extends WidgetsAppController {
 					} else {
 						$this->request->data['Widget']['data']['data'][$field] = isset($data['Widget']['data']['data'][$field]) ? $data['Widget']['data']['data'][$field] : null;
 					}
-				}
+				}*/
 			}
 			
 			$this->_save();
@@ -54,7 +54,7 @@ class ElementWidgetController extends WidgetsAppController {
 		
 		$editor = Configure::read('Admin.editor');
 		$this->helpers['Editor'] = array('className' => $editor);
-		$this->helpers[] = 'JsonEditor.JsonEditor';
+		//$this->helpers[] = 'JsonEditor.JsonEditor';
 		$this->set('data_fields', $data['Widget']['data']['data_fields']);
 	}
 

@@ -16,7 +16,7 @@ $POC->configCheck('tmp_writable');  // Cache Me
 $POC->configCheck('pcre'); // Cache Me
 
 // Load Piece O Cake configuration
-Configure::load('awecms');
+$POC->loadConfig();
 
 // Check to make sure all the required plugins are available
 $plugins = App::objects('plugin');
@@ -32,11 +32,11 @@ if ($datasourcesExists) {
 }
 
 CakePlugin::load('Utils'); // CakeDC/Utils plugin
-CakePlugin::load('Search'); // CakeDC/Search plugin
+//CakePlugin::load('Search'); // CakeDC/Search plugin
 //CakePlugin::load('Users', array('routes' => true)); // CakeDC/Users plugin
-CakePlugin::load('JsonEditor');
+//CakePlugin::load('JsonEditor');
 
-CakePlugin::load('Uploader');
+//CakePlugin::load('Uploader');
 CakePlugin::load('TwitterBootstrap');
 
 App::build(array('View' => App::pluginPath('Awecms') . 'View' . DS));

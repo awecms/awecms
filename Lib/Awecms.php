@@ -31,7 +31,8 @@ class Awecms implements CakeEventListener {
 	}
 	
 	public function controllerInitialize($event) {
-		$Controller =& $event->subject();
+		//$Controller =& $event->subject();
+		$Controller = $event->subject();
 		
 		// Is a page with the admin prefix being requested. If so then setup POC admin.
 		$systemTheme = false;
@@ -211,6 +212,16 @@ class Awecms implements CakeEventListener {
 		$Widget->registerWidgetClass('Awecms.Element', array('editUrl' => array('controller' => 'element_widget')));
 		$Widget->registerWidgetClass('Awecms.Common', array('editUrl' => array('controller' => 'common_widget')));
 		$Widget->registerBlock('common');
+	}
+	
+	public function loadConfig() {
+		if (!config('awecms')) {
+			if (Configure::dump('awecms')) {
+				// Flash message
+			} else {
+				
+			}
+		}
 	}
 	
 	public function configCheck($key = null) {

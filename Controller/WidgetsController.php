@@ -54,7 +54,7 @@ class WidgetsController extends WidgetsAppController {
 		} else {
 			$this->request->data = $data;
 		}
-		$this->helpers[] = 'JsonEditor.JsonEditor';
+		//$this->helpers[] = 'JsonEditor.JsonEditor';
 	}
 
 /**

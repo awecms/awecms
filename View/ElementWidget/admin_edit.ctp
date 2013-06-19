@@ -8,12 +8,9 @@
 		echo $this->Form->input('block', array('options' => $blocks));
 		if ($this->Session->read('Auth.User.is_admin')) :
 			echo $this->Form->input('Widget.data.element');
-			echo $this->JsonEditor->input('Widget.data.data_fields');
-			echo $this->JsonEditor->input('Widget.data.options');
-			echo $this->JsonEditor->input('Widget.data.view_vars');
-			//echo $this->Form->input('Widget.data.data_fields', array('type' => 'textarea'));
-			//echo $this->Form->input('Widget.data.options', array('type' => 'textarea'));
-			//echo $this->Form->input('Widget.data.view_vars', array('type' => 'textarea'));
+			echo $this->Form->input('Widget.data.data_fields', array('type' => 'textarea'));
+			echo $this->Form->input('Widget.data.options', array('type' => 'textarea'));
+			echo $this->Form->input('Widget.data.view_vars', array('type' => 'textarea'));
 		endif;
 		foreach ($data_fields as $field => $options) :
 			$type = isset($options['type']) ? $options['type'] : 'text';
@@ -28,11 +25,18 @@
 					break;
 				
 				case 'image':
-					echo $this->element('Awecms.image_upload', array('field' => 'Widget.data.data.' . $field, 'options' => $options));
+					echo $this->FileManager->image('Widget.data.data.' . $field, $options);
+					//echo $this->element('Awecms.image_upload', array('field' => 'Widget.data.data.' . $field, 'options' => $options));
+					break;
+					
+				case 'document':
+					echo $this->FileManager->image('Widget.data.data.' . $field, $options);
+					//echo $this->element('Awecms.image_upload', array('field' => 'Widget.data.data.' . $field, 'options' => $options));
 					break;
 				
 				case 'file':
-					echo $this->element('Awecms.file_upload', array('field' => 'Widget.data.data.' . $field, 'options' => $options));
+					echo $this->FileManager->input('Widget.data.data.' . $field, $options);
+					//echo $this->element('Awecms.file_upload', array('field' => 'Widget.data.data.' . $field, 'options' => $options));
 					break;
 				
 				case 'wysiwyg':
