@@ -1,5 +1,5 @@
 <?php
-App::uses('Block', 'PieceOCake.Model');
+App::uses('Block', 'Awecms.Model');
 
 /**
  * Block Test Case
@@ -13,9 +13,9 @@ class BlockTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.piece_o_cake.block',
-		'plugin.piece_o_cake.slot',
-		'plugin.piece_o_cake.slide'
+		'plugin.awecms.block',
+		'plugin.awecms.slot',
+		'plugin.awecms.slide'
 	);
 
 /**
@@ -25,7 +25,7 @@ class BlockTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->Block = ClassRegistry::init('PieceOCake.Block');
+		$this->Block = ClassRegistry::init('Awecms.Block');
 	}
 
 /**

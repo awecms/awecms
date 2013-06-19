@@ -1,11 +1,11 @@
 <?php
-App::uses('PieceOCakeAppController', 'PieceOCake.Controller');
+App::uses('AwecmsAppController', 'Awecms.Controller');
 /**
  * Pages Controller
  *
  * @property Page $Page
  */
-class PagesController extends PieceOCakeAppController {
+class PagesController extends AwecmsAppController {
 
 	public $uses = array();
 

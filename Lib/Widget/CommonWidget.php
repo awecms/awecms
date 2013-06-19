@@ -1,6 +1,6 @@
 <?php
 
-App::uses('BaseWidget', 'PieceOCake.Widget');
+App::uses('BaseWidget', 'Awecms.Widget');
 App::uses('ClassRegistry', 'Event');
 
 class CommonWidget extends BaseWidget {

@@ -3,8 +3,8 @@ class FileManagerHelper extends AppHelper {
 
 	public $helpers = array(
 		'FineUploader.FineUploader' => array(
-			'template' =>  'PieceOCake.FineUploader/template',
-			'fileTemplate' =>  'PieceOCake.FineUploader/fileTemplate',
+			'template' =>  'Awecms.FineUploader/template',
+			'fileTemplate' =>  'Awecms.FineUploader/fileTemplate',
 			'scriptOptions' => array(
 				'text' => array(
 					'uploadButton' => '<i class="icon-upload icon-white"></i> Upload a file'
@@ -14,7 +14,7 @@ class FileManagerHelper extends AppHelper {
 					'fail' => 'alert alert-error'
 				)
 			),
-			'css' => 'PieceOCake.FineUploader/fineuploader'
+			'css' => 'Awecms.FineUploader/fineuploader'
 		)
 	);
 

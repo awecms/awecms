@@ -1,6 +1,6 @@
 <?php
 
-App::uses('WidgetsAppController', 'PieceOCake.Controller');
+App::uses('WidgetsAppController', 'Awecms.Controller');
 
 class HtmlWidgetController extends WidgetsAppController {
 

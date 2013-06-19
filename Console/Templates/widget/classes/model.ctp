@@ -20,7 +20,7 @@
  */
 
 echo "<?php\n";
-echo "App::uses('WidgetModel', 'PieceOCake.Model');\n";
+echo "App::uses('WidgetModel', 'Awecms.Model');\n";
 ?>
 /**
  * <?php echo $name ?> Model

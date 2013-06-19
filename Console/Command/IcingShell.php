@@ -4,7 +4,7 @@ App::uses('AppShell', 'Console/Command');
 
 class IcingShell extends AppShell {
 
-	public $tasks = array('Widget', 'User');
+	public $tasks = array('Awecms.Widget', 'Awecms.User');
 	
 	public $connection = 'default';
 

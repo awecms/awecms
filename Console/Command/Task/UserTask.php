@@ -2,7 +2,7 @@
 
 App::uses('BakeTask', 'Console/Command/Task');
 
-class UserTaks extends BakeTask {
+class UserTask extends BakeTask {
 	
 	public $uses = array('Users.User');
 
@@ -12,6 +12,7 @@ class UserTaks extends BakeTask {
 	}
 	
 	protected function _interactive() {
+		$this->interactive = true;
 		// Defaults
 		$defaultEmail = Configure::read('App.defaultEmail');
 		$defaultRole = Configure::read('Users.defaultRole');

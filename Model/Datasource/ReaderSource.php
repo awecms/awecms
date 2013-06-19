@@ -1,7 +1,7 @@
 <?php
 
 App::uses('ArraySource', 'Datasources.Model/Datasource');
-App::import('Vendor', 'PieceOCake.Uuid/class.uuid');
+App::import('Vendor', 'Awecms.Uuid/class.uuid');
 
 class ReaderSource extends ArraySource {
 

@@ -1,5 +1,5 @@
 <?php
-App::uses('PieceOCakeAppModel', 'PieceOCake.Model');
+App::uses('AwecmsAppModel', 'Awecms.Model');
 App::uses('CakeEvent', 'Event');
 App::uses('Inflector', 'Utility');
 /**
@@ -8,7 +8,7 @@ App::uses('Inflector', 'Utility');
  * @property Slot $Slot
  * @property Slide $Slide
  */
-class Widget extends PieceOCakeAppModel {
+class Widget extends AwecmsAppModel {
 
 	public $actsAs = array(
 		'Utils.Serializable' => array('field' => 'data', 'engine' => 'json')
@@ -100,7 +100,7 @@ class Widget extends PieceOCakeAppModel {
 			$title = $options['title'];
 		}
 		
-		$editUrl = array('admin' => true, 'plugin' => 'piece_o_cake', 'controller' => 'widgets', 'action' => 'edit');
+		$editUrl = array('admin' => true, 'plugin' => 'awecms', 'controller' => 'widgets', 'action' => 'edit');
 		if (!empty($options['editUrl'])) {
 			$editUrl = array_merge($editUrl, $options['editUrl']);
 		}

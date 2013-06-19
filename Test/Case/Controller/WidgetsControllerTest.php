@@ -1,5 +1,5 @@
 <?php
-App::uses('WidgetsController', 'PieceOCake.Controller');
+App::uses('WidgetsController', 'Awecms.Controller');
 
 /**
  * WidgetsController Test Case
@@ -13,7 +13,7 @@ class WidgetsControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.piece_o_cake.widget'
+		'plugin.awecms.widget'
 	);
 
 /**

@@ -1,5 +1,5 @@
 <?php
-App::uses('ConfigsController', 'PieceOCake.Controller');
+App::uses('ConfigsController', 'Awecms.Controller');
 
 /**
  * ConfigsController Test Case
@@ -13,7 +13,7 @@ class ConfigsControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.piece_o_cake.config'
+		'plugin.awecms.config'
 	);
 
 /**

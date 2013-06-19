@@ -30,7 +30,7 @@ class WidgetSource extends DataSource {
 	);
 	
 	public function listSources() {
-		$POC = PieceOCake::instance();
+		$POC = Awecms::instance();
 		return $POS->getWidgetList();
 	}
 	

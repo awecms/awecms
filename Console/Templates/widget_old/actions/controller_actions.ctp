@@ -23,7 +23,7 @@
 	if ($admin):
 		$redirect .= "'" . rtrim($admin, '_') . "' => true, ";
 	endif;
-	$redirect .= "'plugin' => 'piece_o_cake', 'controller' => 'widgets', 'action' => 'index')";
+	$redirect .= "'plugin' => 'awecms', 'controller' => 'widgets', 'action' => 'index')";
 ?>
 /**
  * <?php echo $admin ?>view method

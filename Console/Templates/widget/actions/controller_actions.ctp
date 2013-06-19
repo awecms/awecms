@@ -21,7 +21,7 @@ $redirect = "array(";
 if ($admin):
 	$redirect .= "'" . rtrim($admin, '_') . "' => true, ";
 endif;
-$redirect .= "'plugin' => 'piece_o_cake', 'controller' => 'widget', 'action' => 'index')";
+$redirect .= "'plugin' => 'awecms', 'controller' => 'widget', 'action' => 'index')";
 ?>
 
 /**

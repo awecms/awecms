@@ -11,7 +11,7 @@ class DboReader implements ConfigReaderInterface {
 	
 	public function read($key) {
 		if (!isset($this->_models[$key])) {
-			App::uses($key, 'PieceOCake.Model');
+			App::uses($key, 'Awecms.Model');
 			$this->_models[$key] = new $key();
 		}
 		$model = $this->_models[$key];

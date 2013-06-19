@@ -1,7 +1,7 @@
 <?php
 
 App::uses('CakeRoute', 'Routing/Route');
-App::uses('Slug', 'PieceOCake.Model');
+App::uses('Slug', 'Awecms.Model');
 
 class SlugRoute extends CakeRoute {
 

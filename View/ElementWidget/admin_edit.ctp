@@ -28,11 +28,11 @@
 					break;
 				
 				case 'image':
-					echo $this->element('PieceOCake.image_upload', array('field' => 'Widget.data.data.' . $field, 'options' => $options));
+					echo $this->element('Awecms.image_upload', array('field' => 'Widget.data.data.' . $field, 'options' => $options));
 					break;
 				
 				case 'file':
-					echo $this->element('PieceOCake.file_upload', array('field' => 'Widget.data.data.' . $field, 'options' => $options));
+					echo $this->element('Awecms.file_upload', array('field' => 'Widget.data.data.' . $field, 'options' => $options));
 					break;
 				
 				case 'wysiwyg':

@@ -1,8 +1,13 @@
 <?php
 
-Router::connect('/admin', array('admin' => true, 'plugin' => 'piece_o_cake', 'controller' => 'pages', 'action' => 'display', 'home'));
-Router::connect('/admin/display/*', array('admin' => true, 'plugin' => 'piece_o_cake', 'controller' => 'pages', 'action' => 'display'));
-Router::connect('/display/*', array('admin' => false, 'plugin' => 'piece_o_cake', 'controller' => 'pages', 'action' => 'display'));
+Router::connect('/admin', array('admin' => true, 'plugin' => 'awecms', 'controller' => 'pages', 'action' => 'display', 'home'));
+Router::connect('/admin/display/*', array('admin' => true, 'plugin' => 'awecms', 'controller' => 'pages', 'action' => 'display'));
+Router::connect('/display/*', array('admin' => false, 'plugin' => 'awecms', 'controller' => 'pages', 'action' => 'display'));
+
+Router::connect('/login', array('admin' => false, 'plugin' => 'awecms', 'controller' => 'users', 'action' => 'login'));
+Router::connect('/admin/login', array('admin' => true, 'plugin' => 'awecms', 'controller' => 'users', 'action' => 'login'));
+Router::connect('/logout', array('admin' => false, 'plugin' => 'awecms', 'controller' => 'users', 'action' => 'logout'));
+Router::connect('/admin/logout', array('admin' => true, 'plugin' => 'awecms', 'controller' => 'users', 'action' => 'logout'));
 
 // Connect aliased routes
 /*$adminMenu = Configure::read('Admin.menu');
@@ -20,5 +25,5 @@ if (is_array($adminMenu)) {
 	}
 }*/
 
-// App::uses('SlugRoute', 'PieceOCake.Lib');
+// App::uses('SlugRoute', 'Awecms.Lib');
 // SlugRoute::connectRoutes();

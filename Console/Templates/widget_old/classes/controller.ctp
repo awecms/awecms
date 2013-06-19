@@ -49,7 +49,7 @@ class <?php echo $controllerName; ?>Controller extends <?php echo $plugin; ?>App
 
 <?php else:
 
-	echo "public $uses = 'PieceOCake.Widget';\n\n";
+	echo "public $uses = 'Awecms.Widget';\n\n";
 
     if (count($helpers)):
         echo "/**\n * Helpers\n *\n * @var array\n */\n";

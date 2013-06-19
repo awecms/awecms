@@ -1,6 +1,6 @@
 <?php
 
-App::uses('BaseWidget', 'PieceOCake.Widget');
+App::uses('BaseWidget', 'Awecms.Widget');
 
 class HtmlWidget extends BaseWidget {
 

@@ -4,7 +4,7 @@ App::uses('AppShell', 'Console/Command');
 
 class PluginShell extends AppShell {
 
-	public $tasks = array('PieceOCake.Install');
+	public $tasks = array('Awecms.Install');
 	
 	public $connection = 'default';
 

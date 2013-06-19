@@ -2,8 +2,8 @@
 
 // Load Piece O' Cake
 App::uses('CakeEventManager', 'Event');
-App::uses('PieceOCake', 'PieceOCake.Lib');
-$POC = PieceOCake::instance();
+App::uses('Awecms', 'Awecms.Lib');
+$POC = Awecms::instance();
 CakeEventManager::instance()->attach($POC);
 
 
@@ -16,7 +16,7 @@ $POC->configCheck('tmp_writable');  // Cache Me
 $POC->configCheck('pcre'); // Cache Me
 
 // Load Piece O Cake configuration
-Configure::load('piece_o_cake');
+Configure::load('awecms');
 
 // Check to make sure all the required plugins are available
 $plugins = App::objects('plugin');
@@ -28,12 +28,15 @@ $searchExists = in_array('Search', $plugins);
 if ($datasourcesExists) {
 	CakePlugin::load('Datasources'); // CakePHP/Datasources plugin (2.0 branch)
 	App::uses('ConnectionManager', 'Model');
-	ConnectionManager::create('config',  array('datasource' => 'PieceOCake.ReaderSource'));
+	ConnectionManager::create('config',  array('datasource' => 'Awecms.ReaderSource'));
 }
 
 CakePlugin::load('Utils'); // CakeDC/Utils plugin
 CakePlugin::load('Search'); // CakeDC/Search plugin
-CakePlugin::load('Users', array('routes' => true)); // CakeDC/Users plugin
+//CakePlugin::load('Users', array('routes' => true)); // CakeDC/Users plugin
 CakePlugin::load('JsonEditor');
 
-// CakePlugin::load('Uploader');
+CakePlugin::load('Uploader');
+CakePlugin::load('TwitterBootstrap');
+
+App::build(array('View' => App::pluginPath('Awecms') . 'View' . DS));

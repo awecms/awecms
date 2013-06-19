@@ -1,26 +1,19 @@
 <?php
 App::uses('AwecmsAppModel', 'Awecms.Model');
 /**
- * Config Model
+ * User Model
  *
+ * @property UserDetail $UserDetail
  */
-class Config extends AwecmsAppModel {
-	
-	/*public $actsAs = array(
-		'Utils.Serializable' => array('field' => 'value')
-	);*/
-	
-	//public $order = 'name';
-	public $useDbConfig = 'config';
-	public $useTable = 'awecms';
-	
+class User extends AwecmsAppModel {
+
 /**
  * Validation rules
  *
  * @var array
  */
-	/*public $validate = array(
-		'name' => array(
+	public $validate = array(
+		'username' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
 				//'message' => 'Your custom message here',
@@ -30,7 +23,7 @@ class Config extends AwecmsAppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'is_locked' => array(
+		'slug' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
 				//'message' => 'Your custom message here',
@@ -40,11 +33,29 @@ class Config extends AwecmsAppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-	);*/
-	
-	public function write($name, $value) {
-		$this->create();
-		$config = array('Config' => compact('name', 'value'));
-		$this->save($config);
-	}
+	);
+
+	//The Associations below have been created with all possible keys, those that are not needed can be removed
+
+/**
+ * hasMany associations
+ *
+ * @var array
+ */
+	public $hasMany = array(
+		'UserDetail' => array(
+			'className' => 'UserDetail',
+			'foreignKey' => 'user_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);
+
 }

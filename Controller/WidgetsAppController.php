@@ -1,10 +1,10 @@
 <?php
 
-App::uses('PieceOCakeAppController', 'PieceOCake.Controller');
+App::uses('AwecmsAppController', 'Awecms.Controller');
 
-class WidgetsAppController extends PieceOCakeAppController {
+class WidgetsAppController extends AwecmsAppController {
 
-	public $uses = array('PieceOCake.Widget');
+	public $uses = array('Awecms.Widget');
 
 	public function beforeRender() {
 		$classes = $this->Widget->getWidgetClassList();
@@ -15,7 +15,7 @@ class WidgetsAppController extends PieceOCakeAppController {
 	protected function _save() {
 		if ($this->Widget->save($this->request->data)) {
 			$this->Session->setFlash(__('The widget has been saved'));
-			$this->redirect(array('plugin' => 'piece_o_cake', 'controller' => 'widgets', 'action' => 'index'));
+			$this->redirect(array('plugin' => 'awecms', 'controller' => 'widgets', 'action' => 'index'));
 		} else {
 			$this->Session->setFlash(__('The widget could not be saved. Please, try again.'));
 		}

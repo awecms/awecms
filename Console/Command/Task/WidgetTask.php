@@ -26,7 +26,7 @@ class WidgetTask extends BakeTask {
 				$actions .= "\n" . $this->bakeActions($controller, $admin);
 			}
 			
-			$this->bake($controller, $actions)
+			$this->bake($controller, $actions);
 		}
 	}
 	
@@ -36,7 +36,7 @@ class WidgetTask extends BakeTask {
 		if ($plugin) {
 			$plugin .= '.';
 		}
-		App::uses('Widget', 'PieceOCake.Model');
+		App::uses('Widget', 'Awecms.Model');
 		if (!class_exists($modelImport)) {
 			$this->err(__d('cake_console', 'You must have a model for this class to build basic methods. Please try again.'));
 			$this->_stop();

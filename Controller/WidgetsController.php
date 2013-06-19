@@ -1,6 +1,6 @@
 <?php
 
-App::uses('WidgetsAppController', 'PieceOCake.Controller');
+App::uses('WidgetsAppController', 'Awecms.Controller');
 
 /**
  * Widgets Controller
@@ -30,7 +30,7 @@ class WidgetsController extends WidgetsAppController {
 			$this->Widget->create();
 			if ($this->Widget->save($this->request->data)) {
 				$this->Session->setFlash(__('The widget has been saved'));
-				$this->redirect(array('plugin' => 'piece_o_cake', 'controller' => 'widgets', 'action' => 'index'));
+				$this->redirect(array('plugin' => 'awecms', 'controller' => 'widgets', 'action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The widget could not be saved. Please, try again.'));
 			}
@@ -75,7 +75,7 @@ class WidgetsController extends WidgetsAppController {
 		}
 		if ($this->Widget->delete()) {
 			$this->Session->setFlash(__('Widget deleted'));
-			$this->redirect(array('plugin' => 'piece_o_cake', 'controller' => 'widgets', 'action' => 'index'));
+			$this->redirect(array('plugin' => 'awecms', 'controller' => 'widgets', 'action' => 'index'));
 		}
 		$this->Session->setFlash(__('Widget was not deleted'));
 		$this->redirect(array('action' => 'index'));

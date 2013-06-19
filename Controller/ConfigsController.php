@@ -1,12 +1,15 @@
 <?php
-App::uses('PieceOCakeAppController', 'PieceOCake.Controller');
+App::uses('AwecmsAppController', 'Awecms.Controller');
 /**
  * Configs Controller
  *
  * @property Config $Config
  */
-class ConfigsController extends PieceOCakeAppController {
+class ConfigsController extends AwecmsAppController {
 
+public $paginate = array(
+        'limit' => 5,
+    );
 /**
  * admin_index method
  *

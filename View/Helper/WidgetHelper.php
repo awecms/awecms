@@ -3,7 +3,7 @@
 App::uses('Helper', 'View');
 App::uses('Hash', 'Utility');
 App::uses('CakeEvent', 'Event');
-App::uses('ClassRegistry', 'Event');
+App::uses('ClassRegistry', 'Utility');
 
 class WidgetHelper extends Helper {
 
@@ -19,7 +19,7 @@ class WidgetHelper extends Helper {
 		}
 		$this->settings['blocks'] = Hash::normalize($this->settings['blocks']);
 		if (empty($this->settings['renderer'])) {
-			$this->settings['renderer'] = 'PieceOCake.default-renderer';
+			$this->settings['renderer'] = 'Awecms.default-renderer';
 		}
 		$this->_Widget = ClassRegistry::getObject('Widget');
 		
