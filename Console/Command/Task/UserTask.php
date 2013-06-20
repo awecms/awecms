@@ -4,7 +4,7 @@ App::uses('BakeTask', 'Console/Command/Task');
 
 class UserTask extends BakeTask {
 	
-	public $uses = array('Users.User');
+	public $uses = array('Awecms.User');
 
 	public function execute() {
 		parent::execute();
