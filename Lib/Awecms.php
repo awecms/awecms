@@ -135,7 +135,7 @@ class Awecms implements CakeEventListener {
 			
 			$appConfig = array(
 				'BASE_URL' => Router::url('/'),
-				'ADMIN_URL' => Router::url(array('admin' => true, 'plugin' => 'awecms', 'controller' => 'pages', 'action' => 'display', 'home')),
+				'ADMIN_URL' => Router::url(array('admin' => true, 'plugin' => 'awecms', 'controller' => 'static_pages', 'action' => 'display', 'home')),
 				'ACTIONS' => $actionUrls,
 			);
 			$Controller->set('appConfig', $appConfig);
@@ -179,7 +179,7 @@ class Awecms implements CakeEventListener {
 			$Menu = $event->subject();
 			$Menu->addItem(
 					'Dashboard',
-					array('plugin' => 'awecms', 'controller' => 'pages', 'action' => 'display', 'home'),
+					array('plugin' => 'awecms', 'controller' => 'static_pages', 'action' => 'display', 'home'),
 					array('group' => 'admin', 'icon' => 'home')
 				);
 			$Menu->addItem(
