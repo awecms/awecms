@@ -57,5 +57,38 @@ class User extends AwecmsAppModel {
 			'counterQuery' => ''
 		)
 	);
+	
+	public function hash($string, $type = null, $salt = false) {
+		return Security::hash($string, $type, $salt);
+	}
+	
+	public function add($postData = null) {
+		if (!empty($postData)) {
+            $this->data = $postData;
+            if ($this->validates()) {
+                if (empty($postData[$this->alias]['role'])) {
+                    if (empty($postData[$this->alias]['is_admin'])) {
+                        $defaultRole = Configure::read('Users.defaultRole');
+                        if ($defaultRole) {
+                            $postData[$this->alias]['role'] = $defaultRole;
+                        } else {
+                            $postData[$this->alias]['role'] = 'registered';
+                        }
+                    } else {
+                        $postData[$this->alias]['role'] = 'admin';
+                    }
+                }
+                $postData[$this->alias]['password'] = $this->hash($postData[$this->alias]['password'], null, true);
+                $this->create();
+                $result = $this->save($postData, false);
+                if ($result) {
+                    $result[$this->alias][$this->primaryKey] = $this->id;
+                    $this->data = $result;
+                    return true;
+                }
+            }
+		}
+		return false;
+	}
 
 }
