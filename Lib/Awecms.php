@@ -215,13 +215,7 @@ class Awecms implements CakeEventListener {
 	}
 	
 	public function loadConfig() {
-		if (!config('awecms')) {
-			if (Configure::dump('awecms')) {
-				// Flash message
-			} else {
-				
-			}
-		}
+		Configure::load('awecms');
 	}
 	
 	public function configCheck($key = null) {
