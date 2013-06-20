@@ -3,13 +3,13 @@ class ResultMapBehavior extends ModelBehavior {
 
 	protected $_Model = null;
 	
-	public function setup(Model &$Model, $settings = array()) {
+	public function setup(Model $Model, $settings = array()) {
 		$this->settings = Hash::normalize($settings);
 		$this->settings['afterFind'] = isset($this->settings['afterFind']) ? (array) $this->settings['afterFind'] : array();
 		$this->_Model = &$Model;
 	}
 	
-	public function afterFind(Model &$Model, $results, $primary) {
+	public function afterFind(Model $Model, $results, $primary) {
 		if (empty($results)) {
 			$this->_filter($results);
 		} else if (isset($results[$Model->alias])) {
