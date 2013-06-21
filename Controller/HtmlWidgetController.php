@@ -15,7 +15,7 @@ class HtmlWidgetController extends WidgetsAppController {
 			$this->request->data = $data;
 		}
 		
-		$editor = Configure::read('Admin.editor');
+		$editor = Configure::read('Awecms.defaultEditor');
 		$this->helpers['Editor'] = array('className' => $editor);
 	}
 
