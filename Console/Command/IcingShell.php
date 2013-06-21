@@ -4,7 +4,7 @@ App::uses('AppShell', 'Console/Command');
 
 class IcingShell extends AppShell {
 
-	public $tasks = array('Awecms.Widget', 'Awecms.User');
+	public $tasks = array('Awecms.Setup', 'Awecms.User');
 	
 	public $connection = 'default';
 
@@ -26,14 +26,14 @@ class IcingShell extends AppShell {
 	public function main() {
 		$this->out(__d('icing_console', 'Icing Interactive Bake Shell'));
 		$this->hr();
-		$this->out(__d('icing_console', '[W]idget Model'));
+		$this->out(__d('icing_console', '[S]etup Default Config'));
 		$this->out(__d('icing_console', '[U]ser'));
 		$this->out(__d('icing_console', '[Q]uit'));
 		
-		$classToBake = strtoupper($this->in(__d('icing_console', 'What would you like to Bake?'), array('W', 'U', 'Q')));
+		$classToBake = strtoupper($this->in(__d('icing_console', 'What would you like to Bake?'), array('S', 'U', 'Q')));
 		switch ($classToBake) {
-			case 'W':
-				$this->Widget->execute();
+			case 'S':
+				$this->Setup->execute();
 				break;
 			case 'U':
 				$this->User->execute();
@@ -54,9 +54,8 @@ class IcingShell extends AppShell {
 			'The Icing script generates widgets and users for your application.' .
 			' If run with no command line arguments, Icing guides the user through the creation process.' .
 			' You can customize the generation process by telling Icing where different parts of your application are using command line arguments.'
-		))->addSubcommand('widget', array(
-			'help' => __d('icing_console', 'Bake a model for a widget.'),
-			'parser' => $this->Widget->getOptionParser()
+		))->addSubcommand('setup', array(
+			'help' => __d('icing_console', 'Setup default config.'),
 		))->addSubcommand('user', array(
 			'help' => __d('icing_console', 'Add a new user to the database.'),
 		))->addOption('connection', array(
