@@ -7,9 +7,6 @@ App::uses('AwecmsAppController', 'Awecms.Controller');
  */
 class ConfigsController extends AwecmsAppController {
 
-public $paginate = array(
-        'limit' => 5,
-    );
 /**
  * admin_index method
  *
