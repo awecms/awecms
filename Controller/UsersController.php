@@ -121,7 +121,7 @@ class UsersController extends AwecmsAppController {
 				}
 				$this->Session->setFlash(sprintf(__d('users', '%s you have successfully logged in'), $this->Auth->user('username')));
 
-				$this->redirect(array('admin' => true, 'plugin' => 'awecms', 'controller' => 'pages', 'action' => 'display', 'home'));
+				$this->redirect(array('admin' => true, 'plugin' => 'awecms', 'controller' => 'static_pages', 'action' => 'display', 'home'));
 			} else {
 				$this->Auth->flash(__d('users', 'Invalid username / password.  Please try again.'));
 			}
