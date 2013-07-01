@@ -27,6 +27,7 @@ class Awecms implements CakeEventListener {
 			'Controller.beforeRender' => 'controllerBeforeRender',
 			'Menu.beforeRender' => 'addMenuItems',
 			'Widget.initialize' => 'registerWidgetClasses',
+			'View.beforeLayout' => 'viewBeforeLayout',
 		);
 	}
 	
@@ -126,6 +127,7 @@ class Awecms implements CakeEventListener {
 	public function controllerBeforeRender($event) {
 		$Controller = $event->subject();
 		
+		$appConfig = array('BASE_URL' => Router::url('/'));
 		if (!empty($Controller->request->params['admin'])) {
 			$actions = $this->_getControllerActions($Controller);
 			$actionUrls = array();
@@ -133,20 +135,22 @@ class Awecms implements CakeEventListener {
 				$actionUrls[$action] = Router::url(array('action' => $action));
 			}
 			
-			$appConfig = array(
-				'BASE_URL' => Router::url('/'),
-				'ADMIN_URL' => Router::url(array('admin' => true, 'plugin' => 'awecms', 'controller' => 'static_pages', 'action' => 'display', 'home')),
-				'ACTIONS' => $actionUrls,
-			);
-			$Controller->set('appConfig', $appConfig);
-			
+			$appConfig['ADMIN_URL'] = Router::url(array('admin' => true, 'plugin' => 'awecms', 'controller' => 'static_pages', 'action' => 'display', 'home'));
+			$appConfig['ACTIONS'] = $actionUrls;
 		}
+		$Controller->set('appConfig', $appConfig);
 		
 		/*$bootstrapFormOptions = array(
 			'div' => 'control-group',
 			'label' => array('class' => 'control-label'),
 		);
 		$Controller->set('bootstrapFormOptions', $bootstrapFormOptions);*/
+	}
+	
+	public function viewBeforeLayout($event) {
+		$View = $event->subject();
+		$script = sprintf('var APP = %s;', json_encode($View->viewVars['appConfig']));
+		$View->prepend('script', $View->Html->scriptBlock($script));
 	}
 	
 	protected function _getControllerActions($Controller) {
