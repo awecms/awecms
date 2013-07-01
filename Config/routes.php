@@ -1,8 +1,10 @@
 <?php
 
-Router::connect('/admin', array('admin' => true, 'plugin' => 'awecms', 'controller' => 'static_pages', 'action' => 'display', 'home'));
+Router::connect('/admin', array('admin' => true, 'plugin' => 'awecms', 'controller' => 'static_pages', 'action' => 'plugin_display', 'awecms', 'home'));
 Router::connect('/admin/static/*', array('admin' => true, 'plugin' => 'awecms', 'controller' => 'static_pages', 'action' => 'display'));
 Router::connect('/static/*', array('admin' => false, 'plugin' => 'awecms', 'controller' => 'static_pages', 'action' => 'display'));
+Router::connect('/:plugin/static/*', array('admin' => false, 'plugin' => 'awecms', 'controller' => 'static_pages', 'action' => 'plugin_display'));
+Router::connect('/admin/:plugin/static/*', array('admin' => true, 'plugin' => 'awecms', 'controller' => 'static_pages', 'action' => 'plugin_display'), array('pass' => array('plugin')));
 
 Router::connect('/login', array('admin' => false, 'plugin' => 'awecms', 'controller' => 'users', 'action' => 'login'));
 Router::connect('/admin/login', array('admin' => true, 'plugin' => 'awecms', 'controller' => 'users', 'action' => 'login'));

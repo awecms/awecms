@@ -94,7 +94,7 @@ class AwecmsFormHelper extends FormHelper {
 		$submitOptions = array();
 		if (is_string($options)) {
 			$submit = $options;
-			$options = array();
+			//$options = array();
 		} else {
 			if (isset($options['label'])) {
 				$submit = $options['label'];
