@@ -1,9 +1,7 @@
 <?php
 App::uses('AwecmsAppController', 'Awecms.Controller');
 /**
- * Pages Controller
- *
- * @property Page $Page
+ * Static Pages Controller
  */
 class StaticPagesController extends AwecmsAppController {
 
