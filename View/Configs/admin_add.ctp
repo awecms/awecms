@@ -8,10 +8,7 @@
 	<?php
 		echo $this->Form->input('name');
 		echo $this->Form->input('value');
-		echo $this->Html->div('form-actions',
-			$this->Form->button(__d('awecms', 'Save'), array('class' => 'btn btn-primary', 'type' => 'submit')) . ' ' .
-			$this->Html->link(__d('awecms', 'Cancel'), array('action' => 'index'), array('class' => 'btn'))
-		);
+		echo $this->Form->actions();
 	?>
 </fieldset>
 <?php echo $this->Form->end();
