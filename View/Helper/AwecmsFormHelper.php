@@ -99,6 +99,8 @@ class AwecmsFormHelper extends FormHelper {
 			if (isset($options['label'])) {
 				$submit = $options['label'];
 				unset($options['label']);
+			} else {
+				$submit = 'Save';
 			}
 			$submitOptions = $options;
 		}
