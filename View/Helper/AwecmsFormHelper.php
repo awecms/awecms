@@ -144,6 +144,14 @@ class AwecmsFormHelper extends FormHelper {
 		
 		return $this->submit($submit, $submitOptions);
 	}
+
+	protected function _getFormat($options) {
+		if ($options['type'] === 'checkbox') {
+			$fixedOptions = array('type' => 'input') + $options;
+			return parent::_getFormat($fixedOptions);
+		}
+		return parent::_getFormat($options);
+	}
 	
 	public function getEventManager() {
 		if (empty($this->_eventManager)) {
