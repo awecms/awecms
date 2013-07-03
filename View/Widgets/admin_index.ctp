@@ -75,7 +75,7 @@
 						'<i class="icon-remove"></i> ' . __d('awecms', 'Delete'),
 						array('action' => 'delete', $widget['Widget']['id']),
 						array('escape' => false, 'class' => 'btn btn-small btn-danger'),
-						__d('awecms', 'Are you sure you want to delete \'%s?\'', $widget['Widget']['name'])
+						__d('awecms', 'Are you sure you want to delete \'%s\'?', $widget['Widget']['name'])
 					);
 				?>
 			</td>
