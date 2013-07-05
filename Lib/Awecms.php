@@ -149,8 +149,10 @@ class Awecms implements CakeEventListener {
 	
 	public function viewBeforeLayout($event) {
 		$View = $event->subject();
-		$script = sprintf('var APP = %s;', json_encode($View->viewVars['appConfig']));
-		$View->prepend('script', $View->Html->scriptBlock($script));
+		if (!$View->request->is('ajax')) {
+			$script = sprintf('var APP = %s;', json_encode($View->viewVars['appConfig']));
+			$View->prepend('script', $View->Html->scriptBlock($script));
+		}
 	}
 	
 	protected function _getControllerActions($Controller) {
