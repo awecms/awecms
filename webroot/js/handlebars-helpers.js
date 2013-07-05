@@ -13,6 +13,11 @@ jQuery(function ($) {
         return Awecms.templates[selector];
     };
 
+    Handlebars.registerHelper('template', function (selector) {
+        var template = Awecms.getTemplate(selector);
+        return new Handlebars.SafeString(template(this));
+    });
+
     Handlebars.registerHelper('url', function (url) {
         if (arguments.length > 2) {
             var args = Array.prototype.slice.call(arguments);
