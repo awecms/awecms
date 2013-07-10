@@ -22,7 +22,7 @@ class Awecms implements CakeEventListener {
 	
 	public function implementedEvents() {
 		return array(
-			'Controller.initialize' => 'controllerInitialize',
+			'Controller.initialize' => array('callable' => 'controllerInitialize', 'priority' => 1),
 			//'Controller.beforeRedirect' => array('callable' => 'controllerBeforeRedirect', 'passParams' => true),
 			'Controller.beforeRender' => 'controllerBeforeRender',
 			'Menu.beforeRender' => 'addMenuItems',
