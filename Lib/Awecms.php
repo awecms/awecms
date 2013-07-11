@@ -58,6 +58,11 @@ class Awecms implements CakeEventListener {
 			$Controller->helpers['Html'] = array('className' => 'TwitterBootstrap.BootstrapHtml');
 			$Controller->helpers['Form'] = array('className' => 'Awecms.AwecmsForm');
 			$Controller->helpers['TwitterPaginator'] = array('className' => 'TwitterBootstrap.BootstrapPaginator');
+		} else {
+			$siteTheme = Configure::read('Awecms.siteTheme');
+			if ($siteTheme !== null) {
+				$Controller->theme = $siteTheme;
+			}
 		}
 		
 		// Security component fails for my clients too often
