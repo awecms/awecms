@@ -23,12 +23,13 @@ class SetupTask extends BakeTask {
 		$websiteName = $this->in('Website Name:', null, 'AweCMS Website');
 		$defaultEditor = $this->in('Default Editor:', null, 'Ckeditor.Ckeditor');
 		$titleFormat = $this->in('Title Format:', null, $websiteName . ': %s');
-		$uploadPath = $this->in('Upload Path:', null, '/' . WEBROOT_DIR . '/upload/');
-		$uploadUrl = $this->in('Upload URL:', null, Router::url('/upload/'));
 		while (empty($defaultEmail)) {
 			$defaultEmail = $this->in('Admin Email:');
 		}
-		
+		$uploadPath = $this->in('Upload Path:', null, '/' . WEBROOT_DIR . '/upload/');
+		$uploadUrl = $this->in('Upload URL:', null, Router::url('/upload/'));
+		$siteTheme = $this->in('Theme:');
+
 		$config = array(
 			'Awecms' => compact(
 				'designCompany',
@@ -36,7 +37,8 @@ class SetupTask extends BakeTask {
 				'defaultEditor',
 				'titleFormat',
 				'uploadPath',
-				'uploadUrl'
+				'uploadUrl',
+				'siteTheme'
 			),
 			'App' => compact('defaultEmail'),
 		);
