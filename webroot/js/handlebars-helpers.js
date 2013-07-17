@@ -34,4 +34,17 @@ jQuery(function ($) {
     Handlebars.registerHelper('_d', function (domain, key) {
         return key;
     });
+
+	Handlebars.registerHelper('options', function (data, id) {
+		var out = '';
+		var template = Handlebars.compile('<option value="{{id}}"{{selected}}>{{name}}</option>');
+		$.each(data, function(index, value) {
+			out += template({
+				id: value.id,
+				name: value.name,
+				selected: ((id !== undefined && id === value.id) ? ' selected' : '')
+			});
+		});
+		return new Handlebars.SafeString(out);
+	});
 });
