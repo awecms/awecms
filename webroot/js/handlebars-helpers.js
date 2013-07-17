@@ -31,6 +31,13 @@ jQuery(function ($) {
         return url.replace(/[\/]+/g, '/');
     });
 
+    Handlebars.registerHelper('asset', function () {
+		var args = Array.prototype.slice.call(arguments);
+		var type = args.shift().toUpperCase();
+		args.unshift(APP['ASSETS'][type]);
+		return Handlebars.helpers.url.apply(this, args);
+    });
+
     Handlebars.registerHelper('_d', function (domain, key) {
         return key;
     });

@@ -63,10 +63,9 @@ class Awecms implements CakeEventListener {
 			if ($siteTheme !== null) {
 				$Controller->theme = $siteTheme;
 			}
+
+			$Controller->helpers['Html'] = array('className' => 'Awecms.AwecmsHtml');
 		}
-		
-		// Security component fails for my clients too often
-		//$Controller->Components->unload('Security');
 		
 		// Debug test shortcut for views and controllers
 		$Controller->debug = Configure::read('debug') > 0;
@@ -132,7 +131,16 @@ class Awecms implements CakeEventListener {
 	public function controllerBeforeRender($event) {
 		$Controller = $event->subject();
 		
-		$appConfig = array('BASE_URL' => Router::url('/'));
+		$appConfig = array(
+			'BASE_URL' => Router::url('/'),
+			'ASSETS' => array(
+				'UPLOAD' => Configure::read('Awecms.uploadUrl'),
+				'IMAGE' => IMAGES_URL,
+				'JS' => JS_URL,
+				'CSS' => CSS_URL,
+			)
+		);
+
 		if (!empty($Controller->request->params['admin'])) {
 			$actions = $this->_getControllerActions($Controller);
 			$actionUrls = array();
