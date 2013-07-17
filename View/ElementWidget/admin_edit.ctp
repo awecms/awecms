@@ -26,17 +26,14 @@
 				
 				case 'image':
 					echo $this->FileManager->image('Widget.data.data.' . $field, $options);
-					//echo $this->element('Awecms.image_upload', array('field' => 'Widget.data.data.' . $field, 'options' => $options));
 					break;
 					
 				case 'document':
 					echo $this->FileManager->image('Widget.data.data.' . $field, $options);
-					//echo $this->element('Awecms.image_upload', array('field' => 'Widget.data.data.' . $field, 'options' => $options));
 					break;
 				
 				case 'file':
 					echo $this->FileManager->input('Widget.data.data.' . $field, $options);
-					//echo $this->element('Awecms.file_upload', array('field' => 'Widget.data.data.' . $field, 'options' => $options));
 					break;
 				
 				case 'wysiwyg':
