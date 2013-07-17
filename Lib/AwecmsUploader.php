@@ -57,10 +57,7 @@ class AwecmsUploader {
 		}
 
 		if ($this->_settings['uploadUrl'] === null) {
-			$this->_settings['uploadUrl'] = Configure::read('Awecms.uploadUrl');
-		}
-		if ($this->_settings['uploadUrl'] !== null && substr($this->_settings['uploadUrl'], -1, 1) !== '/') {
-			$this->_settings['uploadUrl'] .= '/';
+			$this->_settings['uploadUrl'] = '/' . Configure::read('Awecms.uploadUrl');
 		}
 	}
 

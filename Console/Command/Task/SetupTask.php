@@ -27,7 +27,7 @@ class SetupTask extends BakeTask {
 			$defaultEmail = $this->in('Admin Email:');
 		}
 		$uploadPath = $this->in('Upload Path:', null, '/' . WEBROOT_DIR . '/upload/');
-		$uploadUrl = $this->in('Upload URL:', null, Router::url('/upload/'));
+		$uploadUrl = $this->in('Upload URL:', null, 'upload/');
 		$siteTheme = $this->in('Theme:');
 
 		$config = array(
