@@ -84,7 +84,7 @@ class AwecmsFormHelper extends FormHelper {
 		if (!empty($addOnOptions)) {
 			$output = $this->Html->div(null, $prepend . $output . $append, $addOnOptions);
 		}
-		if ($this->_layout === 'horizontal') {
+		if ($this->_layout === 'horizontal' && $args['type'] !== 'hidden') {
 			$output = $this->Html->div('controls', $output);
 		}
 		return $output;
