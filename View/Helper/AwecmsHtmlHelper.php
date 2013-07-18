@@ -8,6 +8,7 @@ class AwecmsHtmlHelper extends HtmlHelper {
 		if (!empty($options['upload'])) {
 			$options['pathPrefix'] = Configure::read('Awecms.uploadUrl');
 		}
+		unset($options['upload']);
 		return parent::assetUrl($path, $options);
 	}
 }
