@@ -26,6 +26,7 @@ class HandlebarsHelper extends AppHelper {
 		if (empty($this->_handlebarsView)) {
 			$controller = new Controller($this->_View->request, $this->_View->response);
 			$this->_handlebarsView = new HandlebarsView($controller);
+			$this->_handlebarsView->theme = $this->_View->theme;
 		}
 		return $this->_handlebarsView;
 	}
