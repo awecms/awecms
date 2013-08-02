@@ -20,15 +20,13 @@ class AwecmsString {
 		if (function_exists('mb_convert_encoding')) {
 			return mb_convert_encoding($str, $charset, 'HTML-ENTITIES');
 		}
-		
-		if ($flags === null) {
-			$flags = ENT_QUOTES;
-			if (defined('ENT_HTML401')) {
-				$flags |= constant('ENT_HTML401');
-			}
+
+		$flags = ENT_QUOTES;
+		if (defined('ENT_HTML401')) {
+			$flags |= constant('ENT_HTML401');
 		}
 		
-		return html_entity_decode($str, $flags, $encoding);
+		return html_entity_decode($str, $flags, $charset);
 	}
 	
 	public static function htmlToText($html) {
