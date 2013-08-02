@@ -32,14 +32,14 @@ class AwecmsFormHelper extends FormHelper {
 		$entity = $this->model() . '.' . $this->field();
 		
 		$content = '';
-		$beforeEvent = new CakeEvent('Form.beforeRender.' . $entity, $this, array('content' => &$content));
+		$beforeEvent = new CakeEvent('Form.beforeRender.' . $entity, $this, array('content' => &$content, 'view' => $this->_View));
 		$this->getEventManager()->dispatch($beforeEvent);
 		if ($beforeEvent->isStopped()) {
 			return null;
 		}
 		
 		$content .= parent::input($fieldName, $options);
-		$afterEvent = new CakeEvent('Form.beforeRender.' . $entity, $this, array('content' => &$content));
+		$afterEvent = new CakeEvent('Form.afterRender.' . $entity, $this, array('content' => &$content, 'view' => $this->_View));
 		$this->getEventManager()->dispatch($afterEvent);
 		if ($afterEvent->isStopped()) {
 			return null;
