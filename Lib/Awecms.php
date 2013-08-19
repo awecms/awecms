@@ -234,7 +234,11 @@ class Awecms implements CakeEventListener {
 	}
 	
 	public function loadConfig() {
-		Configure::load('awecms');
+		try {
+			Configure::load('awecms');
+		} catch (ConfigureException $e) {
+			trigger_error('Couldn\'t load AweCMS configuration. Please run \'cake Awecms.setup\'', E_USER_WARNING);
+		}
 	}
 	
 	public function configCheck($key = null) {
