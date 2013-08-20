@@ -1,5 +1,6 @@
 {
 	"name": "thegallagher.net/awecms",
+	"type": "cakephp-plugin",
 	"description": "AweCMS: CakePHP CMS",
 	"minimum-stability": "dev",
 	"authors": [
@@ -10,10 +11,6 @@
 	],
 	"repositories": [
 		{
-			"type": "pear",
-			"url": "http://pear.cakephp.org"
-		},
-		{
 			"type": "vcs",
 			"url": "https://github.com/CakeDC/utils"
 		},
@@ -23,11 +20,8 @@
 		}
 	],
 	"require": {
-		"pear-cakephp/cakephp": "2.3.*",
+		"composer/installers": "*",
 		"cakedc/utils": "dev-develop",
 		"zynesis/twitter-bootstrap-helper": "dev-3.0-zynesis"
-	},
-	"config": {
-		"vendor-dir": "Vendor/"
 	}
 }
