@@ -22,8 +22,6 @@ $POC->loadConfig();
 $plugins = App::objects('plugin');
 $datasourcesExists = in_array('Datasources', $plugins);
 $utilsExists = in_array('Utils', $plugins);
-$usersExists = in_array('Users', $plugins);
-$searchExists = in_array('Search', $plugins);
 
 if ($datasourcesExists) {
 	CakePlugin::load('Datasources'); // CakePHP/Datasources plugin (2.0 branch)
@@ -32,11 +30,6 @@ if ($datasourcesExists) {
 }
 
 CakePlugin::load('Utils'); // CakeDC/Utils plugin
-//CakePlugin::load('Search'); // CakeDC/Search plugin
-//CakePlugin::load('Users', array('routes' => true)); // CakeDC/Users plugin
-//CakePlugin::load('JsonEditor');
-
-//CakePlugin::load('Uploader');
 CakePlugin::load('TwitterBootstrap');
 
 App::build(array('View' => App::pluginPath('Awecms') . 'View' . DS));
