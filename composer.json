@@ -1,0 +1,33 @@
+{
+	"name": "thegallagher.net/awecms",
+	"description": "AweCMS: CakePHP CMS",
+	"minimum-stability": "dev",
+	"authors": [
+		{
+			"name": "David Gallagher",
+			"email": "david@thegallagher.net"
+		}
+	],
+	"repositories": [
+		{
+			"type": "pear",
+			"url": "http://pear.cakephp.org"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/CakeDC/utils"
+		},
+		{
+			"type": "composer",
+			"url": "http://zynesis.github.com/composer-repository/"
+		}
+	],
+	"require": {
+		"pear-cakephp/cakephp": "2.3.*",
+		"cakedc/utils": "dev-develop",
+		"zynesis/twitter-bootstrap-helper": "dev-3.0-zynesis"
+	},
+	"config": {
+		"vendor-dir": "Vendor/"
+	}
+}
