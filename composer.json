@@ -16,7 +16,7 @@
 		},
 		{
 			"type": "composer",
-			"url": "http://zynesis.github.com/composer-repository/"
+			"url": "http://zynesis.github.io/composer-repository/"
 		}
 	],
 	"require": {
