@@ -1,5 +1,5 @@
 {
-	"name": "thegallagher.net/awecms",
+	"name": "awecms/awecms",
 	"type": "cakephp-plugin",
 	"description": "AweCMS: CakePHP CMS",
 	"minimum-stability": "dev",
