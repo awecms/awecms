@@ -9,19 +9,8 @@
 			"email": "david@thegallagher.net"
 		}
 	],
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/CakeDC/utils"
-		},
-		{
-			"type": "composer",
-			"url": "http://zynesis.github.io/composer-repository/"
-		}
-	],
 	"require": {
 		"composer/installers": "*",
-		"cakedc/utils": "dev-develop",
-		"zynesis/twitter-bootstrap-helper": "dev-3.0-zynesis"
+		"cakedc/utils": "~1.4.3"
 	}
 }
