@@ -3,48 +3,48 @@ class ResultMapBehavior extends ModelBehavior {
 
 	protected $_Model = null;
 	
-	public function setup(Model $Model, $settings = array()) {
-		if (!isset($this->settings[$Model->alias])) {
-			$this->settings[$Model->alias] = array('afterFind' => array());
+	public function setup(Model $model, $settings = array()) {
+		if (!isset($this->settings[$model->alias])) {
+			$this->settings[$model->alias] = array('afterFind' => array());
 		}
-		$this->settings[$Model->alias] = array_merge($this->settings[$Model->alias], $settings);
+		$this->settings[$model->alias] = array_merge($this->settings[$model->alias], $settings);
 	}
 	
 	public function afterFind(Model $model, $results, $primary = false) {
-		return $this->map($Model, $this->settings[$Model->alias]['afterFind'], $results);
+		return $this->map($model, $this->settings[$model->alias]['afterFind'], $results);
 	}
 	
-	protected function map(&$Model, $callable, $results) {
+	protected function map(&$model, $callable, $results) {
 		if (empty($results)) {
-			$this->_filter($Model, $callable, $results);
-		} else if (isset($results[$Model->alias])) {
-			if ($results[$Model->alias][0]) {
-				$this->_filter($Model, $callable, $results[$Model->alias]);
+			$this->_filter($model, $callable, $results);
+		} else if (isset($results[$model->alias])) {
+			if ($results[$model->alias][0]) {
+				$this->_filter($model, $callable, $results[$model->alias]);
 			} else {
-				$data = array(&$results[$Model->alias]);
-				$this->_filter($Model, $callable, $data);
+				$data = array(&$results[$model->alias]);
+				$this->_filter($model, $callable, $data);
 			}
-		} else if (isset($results[0][$Model->alias])) {
+		} else if (isset($results[0][$model->alias])) {
 			foreach ($results as &$result) {
-				if (isset($result[$Model->alias][0])) {
-					$this->_filter($Model, $callable, $result[$Model->alias]);
+				if (isset($result[$model->alias][0])) {
+					$this->_filter($model, $callable, $result[$model->alias]);
 				} else {
-					$data = array(&$result[$Model->alias]);
-					$this->_filter($Model, $callable, $data);
+					$data = array(&$result[$model->alias]);
+					$this->_filter($model, $callable, $data);
 				}
 			}
 		} else if (isset($results[0])) {
-			$this->_filter($Model, $callable, $results);
+			$this->_filter($model, $callable, $results);
 		} else {
 			$data = array(&$results);
-			$this->_filter($Model, $callable, $data);
+			$this->_filter($model, $callable, $data);
 		}
 		return $results;
 	}
 	
-	protected function _filter(&$Model, $callable, &$results) {
+	protected function _filter(&$model, $callable, &$results) {
 		foreach ((array) $callable as $method) {
-			$returnValue = $Model->{$method}($results);
+			$returnValue = $model->{$method}($results);
 			if ($returnValue === false) {
 				$results = false;
 				return;
