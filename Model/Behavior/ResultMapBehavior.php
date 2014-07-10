@@ -10,7 +10,7 @@ class ResultMapBehavior extends ModelBehavior {
 		$this->settings[$Model->alias] = array_merge($this->settings[$Model->alias], $settings);
 	}
 	
-	public function afterFind(Model $Model, $results, $primary) {
+	public function afterFind(Model $model, $results, $primary = false) {
 		return $this->map($Model, $this->settings[$Model->alias]['afterFind'], $results);
 	}
 	
