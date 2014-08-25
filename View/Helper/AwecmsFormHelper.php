@@ -19,7 +19,7 @@ class AwecmsFormHelper extends FormHelper {
 		return parent::create($model, $options);
 	}
 	
-	public function end($options = null) {
+	public function end($options = null, $secureAttributes = array()) {
 		$out = null;
 		if ($options !== null) {
 			$out .= $this->actions($options);
